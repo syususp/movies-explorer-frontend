@@ -1,0 +1,129 @@
+.auth {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 70px auto;
+}
+
+.auth__container {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 396px;
+  padding: 0;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.auth__logo {
+  margin: 0;
+  padding: 0;
+}
+
+.auth__title {
+  font-style: normal;
+  font-size: 24px;
+  color: #fff;
+  align-self: center;
+  font-weight: 500;
+  line-height: normal;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.auth__label {
+  position: relative;
+  color: #8b8b8b;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.auth__label:last-of-type {
+  margin-bottom: 198px;
+}
+
+.auth__input {
+  border-style: none;
+  border-bottom: 1px solid #424242;
+  background-color: transparent;
+  width: 100%;
+  height: 14px;
+  margin: 5px 0 24px 0;
+  padding: 0;
+  padding-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  font-style: normal;
+  font-size: 14px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.auth__submit {
+  border-style: none;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  height: 45px;
+  margin: 0 0 16px 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  background: #4285f4;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.auth__submit:hover {
+  opacity: 0.5;
+  transition: 0.5s ease-out;
+}
+
+.signup-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.signup-block__text {
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+}
+
+.signup-block__button {
+  color: #4285f4;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: none;
+  border: none;
+  margin: 0 0 0 6px;
+  padding: 0;
+}
