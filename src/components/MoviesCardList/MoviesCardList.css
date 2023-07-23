@@ -1,0 +1,253 @@
+.movieCardList {
+  background-color: #202020;
+  padding-top: 70px;
+  padding-left: 70px;
+  padding-right: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 24px;
+  grid-row-gap: 42px;
+  padding-bottom: 14px;
+}
+
+.movie {
+  width: 364px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #222;
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.movie__list-style {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie__container {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 17px;
+}
+
+.movie__poster {
+  width: 364px;
+  height: 203px;
+  flex-shrink: 0;
+  margin-bottom: 0px;
+}
+
+.movie__caption-title {
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  width: 290px;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  margin: 0;
+  margin-left: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 14px;
+}
+
+.movie__like-active {
+  background-image: url('../../images/likeActive.svg');
+  background-color: #222222;
+  border: none;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin: 0;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.movie__time-line {
+  color: #8b8b8b;
+  font-size: 11px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  margin-left: 16px;
+  margin-bottom: 9px;
+  padding: 0;
+}
+
+@media screen and (max-width: 1240px) {
+  .movie__container {
+    margin-bottom: 7px;
+  }
+
+  .movieCardList {
+    grid-template-columns: 1fr 1fr;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    gap: 30px;
+    justify-items: center;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .movieCardList {
+    grid-template-columns: 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 19px;
+    gap: 14px;
+    justify-items: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie__container {
+    margin-bottom: 12px;
+  }
+
+  .movie__time-line {
+    margin-bottom: 14px;
+  }
+
+  .movieCardList {
+    grid-template-columns: 1fr 1fr;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 50px;
+    gap: 29px;
+    padding-bottom: 30px;
+  }
+
+  .movie:nth-child(9) {
+    display: none;
+  }
+
+  .movie:nth-child(10) {
+    display: none;
+  }
+
+  .movie:nth-child(11) {
+    display: none;
+  }
+
+  .movie:nth-child(12) {
+    display: none;
+  }
+
+  .movie__poster {
+    width: 339px;
+    height: 190px;
+    margin-bottom: 0px;
+  }
+
+  .movie {
+    width: 339px;
+    flex-shrink: 0;
+  }
+
+  .movie__caption-title {
+    margin-left: 14px;
+    display: flex;
+    width: 260px;
+    margin-top: 8px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .movieCardList {
+    grid-template-columns: 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 12px;
+    padding-top: 41px;
+    justify-content: center;
+    padding-bottom: 14px;
+  }
+
+  .movie__poster {
+    width: 300px;
+    height: 168px;
+    margin-bottom: 0;
+  }
+
+  .movie__caption-title {
+    font-size: 12px;
+    width: 240px;
+  }
+
+  .movie__container {
+    justify-content: normal;
+    gap: 6px;
+  }
+
+  .movie {
+    width: 300px;
+  }
+
+  .movie__time-line {
+    font-size: 10px;
+    margin-bottom: 18px;
+  }
+
+  .movie__like-active {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .movie__like-active:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .movie__like {
+    margin-right: 0;
+  }
+
+  .movie__like:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .movie:nth-child(6) {
+    display: none;
+  }
+
+  .movie:nth-child(7) {
+    display: none;
+  }
+
+  .movie:nth-child(8) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .movie__container {
+    gap: 0;
+    margin-bottom: 8px;
+  }
+
+  .movie__like-active {
+    margin-left: 6px;
+  }
+
+  .movie__caption-title {
+    margin-top: 0;
+  }
+}
