@@ -1,0 +1,90 @@
+.personal-info {
+  margin: 110px auto 100px;
+  background-color: #202020;
+}
+
+.personal-info__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: calc(100% - 140px);
+  margin: 0 auto;
+}
+
+.personal-info__wrapper {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.personal-info__role {
+  display: flex;
+  margin: 0 auto;
+  border-bottom: 1px solid #fff;
+  padding: 0 0 23px 0;
+  width: calc(100% - 140px);
+  color: #fff;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+}
+
+.personal-info__name {
+  margin: 66px 0 18px;
+  padding: 0;
+  color: #fff;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+
+.personal-info__title {
+  margin: 0 0 26px;
+  padding: 0;
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.personal-info__description {
+  margin: 0 0 99px;
+  padding: 0;
+  color: #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.personal-info__github {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.personal__avatar {
+  align-self: self-end;
+  width: 270px;
+  height: 327px;
+  margin: 0;
+  padding: 0;
+}
+
+.personal-info__github:hover {
+  opacity: 0.5;
+  transition: 0.5s ease-out;
+}
