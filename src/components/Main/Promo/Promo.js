@@ -4,7 +4,7 @@ import NavTab from '../NavTab/NavTab';
 
 function Promo() {
   return (
-    <section className="promo">
+    <section className="promo" id="promo">
       <div className="promo_wrapper">
         <h1 className="promo__title">
           Учебный проект студента факультета Веб-разработки.

@@ -1,6 +1,5 @@
 .movieCardList {
   background-color: #202020;
-  padding-top: 70px;
   padding-left: 70px;
   padding-right: 70px;
   display: grid;
@@ -14,20 +13,12 @@
   width: 364px;
   flex-shrink: 0;
   border-radius: 6px;
-  background: #222;
-  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.movie__list-style {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.movie__container {
+.movie__wrapper {
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -35,64 +26,82 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 17px;
+  position: relative;
 }
 
-.movie__poster {
-  width: 364px;
-  height: 203px;
+.movie__image {
+  width: 360px;
+  height: 201px;
   flex-shrink: 0;
   margin-bottom: 0px;
 }
 
-.movie__caption-title {
+.movie__link {
+  margin: 0;
+  padding: 0;
+  max-width: 360px;
+  max-height: 201px;
+}
+
+.movie__name {
   color: #fff;
   font-size: 13px;
-  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   display: flex;
-  width: 290px;
+  width: 250px;
   flex-direction: column;
   flex-shrink: 0;
   overflow: hidden;
   margin: 0;
-  margin-left: 16px;
+  margin-left: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
-.movie__like-active {
-  background-image: url('../../images/likeActive.svg');
-  background-color: #222222;
-  border: none;
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  margin: 0;
-  margin-right: 16px;
-  cursor: pointer;
-}
-
-.movie__time-line {
+.movie__duration {
   color: #8b8b8b;
   font-size: 11px;
-  font-family: 'Inter', Arial, sans-serif;
+  width: 44px;
+  height: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
-  margin: 0;
-  margin-left: 16px;
-  margin-bottom: 9px;
+  line-height: 10px;
+  margin: 14px 17px 0 0;
   padding: 0;
+  text-align: center;
+  background-color: #2f2f2f;
+  border-width: 4px 3px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: #2f2f2f;
+}
+
+.movie__deleteButton {
+  background-image: url('../../images/deleteIcon.svg');
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border-style: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+  transition: filter 0.3s ease;
+}
+
+.movie__wrapper:hover .movie__deleteButton {
+  display: block;
+}
+
+.movie__deleteButton:hover {
+  filter: brightness(1.3);
 }
 
 @media screen and (max-width: 1240px) {
-  .movie__container {
-    margin-bottom: 7px;
-  }
-
   .movieCardList {
     grid-template-columns: 1fr 1fr;
     padding-left: 30px;
@@ -115,11 +124,11 @@
 }
 
 @media screen and (max-width: 768px) {
-  .movie__container {
+  .movie__wrapper {
     margin-bottom: 12px;
   }
 
-  .movie__time-line {
+  .movie__duration {
     margin-bottom: 14px;
   }
 
@@ -148,7 +157,7 @@
     display: none;
   }
 
-  .movie__poster {
+  .movie__image {
     width: 339px;
     height: 190px;
     margin-bottom: 0px;
@@ -159,7 +168,7 @@
     flex-shrink: 0;
   }
 
-  .movie__caption-title {
+  .movie__name {
     margin-left: 14px;
     display: flex;
     width: 260px;
@@ -178,18 +187,18 @@
     padding-bottom: 14px;
   }
 
-  .movie__poster {
+  .movie__image {
     width: 300px;
     height: 168px;
     margin-bottom: 0;
   }
 
-  .movie__caption-title {
+  .movie__name {
     font-size: 12px;
     width: 240px;
   }
 
-  .movie__container {
+  .movie__wrapper {
     justify-content: normal;
     gap: 6px;
   }
@@ -198,30 +207,9 @@
     width: 300px;
   }
 
-  .movie__time-line {
+  .movie__duration {
     font-size: 10px;
     margin-bottom: 18px;
-  }
-
-  .movie__like-active {
-    width: 30px;
-    height: 30px;
-    margin: 0;
-    padding: 0;
-  }
-
-  .movie__like-active:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-
-  .movie__like {
-    margin-right: 0;
-  }
-
-  .movie__like:hover {
-    opacity: 0.8;
-    cursor: pointer;
   }
 
   .movie:nth-child(6) {
@@ -238,16 +226,12 @@
 }
 
 @media screen and (max-width: 530px) {
-  .movie__container {
+  .movie__wrapper {
     gap: 0;
     margin-bottom: 8px;
   }
 
-  .movie__like-active {
-    margin-left: 6px;
-  }
-
-  .movie__caption-title {
+  .movie__name {
     margin-top: 0;
   }
 }

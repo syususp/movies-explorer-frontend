@@ -8,10 +8,11 @@ import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main({ isLoggedIn }) {
+
   return (
     <div className="main__container">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <main>
         <Promo />
         <AboutProject />

@@ -11,7 +11,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   width: 396px;
   padding: 0;
   margin: 0 auto;
@@ -78,6 +78,11 @@
 
 .signup__input:invalid {
   color: #ee3465;
+}
+
+.signup__input:focus {
+  border-bottom-color: #2be080;
+  outline: none; 
 }
 
 .signup__error {

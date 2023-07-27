@@ -1,29 +1,10 @@
 import React from 'react';
 import './Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 
 function Login(props) {
   const navigate = useNavigate();
-
-  //   const [formData, setFormData] = React.useState({
-  //     email: '',
-  //     password: '',
-  //   });
-
-  //   function handleChange(event) {
-  //     const { name, value } = event.target;
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: value,
-  //     }));
-  //   }
-
-  //   function handleSubmit(event) {
-  //     event.preventDefault();
-  //     const { password, email } = formData;
-  //     props.onLogin(password, email);
-  //   }
 
   const handleSignup = () => {
     navigate('/signup');
@@ -33,13 +14,11 @@ function Login(props) {
     <>
       <div className="auth">
         <div className="auth__container">
-          <img src={logo} alt="Логотип проекта" className="auth__logo" />
+          <Link to="/">
+            <img src={logo} alt="Логотип проекта" className="signup__logo" />
+          </Link>
           <h2 className="auth__title">Рады видеть!</h2>
-          <form
-            className={`auth__form`}
-            // onChange={handleChange}
-            // onSubmit={handleSubmit}
-          >
+          <form className={`auth__form`}>
             <label htmlFor="authEmail" className="auth__label">
               E-mail
               <input
@@ -71,21 +50,17 @@ function Login(props) {
             </button>
             <div className="signup-block">
               <p className="signup-block__text">Ещё не зарегистрированы?</p>
-              <button className="signup-block__button" type="button">
+              <button
+                className="signup-block__button"
+                type="button"
+                onClick={handleSignup}
+              >
                 Регистрация
               </button>
             </div>
           </form>
         </div>
       </div>
-      {/* <InfoTooltip
-        name="error-popup"
-        infoText={['Что-то пошло не так!', 'Попробуйте ещё раз.']}
-        image={UnionError}
-        altText={'Что-то пошло не так!'}
-        onClose={props.onClose}
-        isOpen={props.isOpen}
-      /> */}
     </>
   );
 }

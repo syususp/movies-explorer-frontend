@@ -4,7 +4,7 @@ import avatar from '../../../images/avatar.svg';
 
 function AboutMe() {
   return (
-    <section className="personal-info">
+    <section className="personal-info" id="personal-info">
       <h2 className="personal-info__role">Студент</h2>
       <div className="personal-info__container">
         <div className="personal-info__wrapper">
@@ -17,7 +17,7 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <a href="https://github.com/" className="personal-info__github">
+          <a href="https://github.com/" className="personal-info__github" target='_blank' rel="noreferrer">
             Github
           </a>
         </div>

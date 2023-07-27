@@ -1,26 +1,24 @@
 import React from 'react';
 import './Register.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 
 function Register(props) {
   const navigate = useNavigate();
 
-  const handleSignup = () => {
-    navigate('/signup');
+  const handleSignin = () => {
+    navigate('/signin');
   };
 
   return (
     <>
       <div className="signup">
         <div className="signup__container">
-          <img src={logo} alt="Логотип проекта" className="signup__logo" />
+          <Link to="/">
+            <img src={logo} alt="Логотип проекта" className="signup__logo" />
+          </Link>
           <h2 className="signup__title">Добро пожаловать!</h2>
-          <form
-            className={`signup__form`}
-            // onChange={handleChange}
-            // onSubmit={handleSubmit}
-          >
+          <form className={`signup__form`}>
             <label htmlFor="signupPassword" className="signup__label">
               Имя
               <input
@@ -66,7 +64,11 @@ function Register(props) {
             </button>
             <div className="signin-block">
               <p className="signin-block__text">Уже зарегистрированы?</p>
-              <button className="signin-block__button" type="button">
+              <button
+                className="signin-block__button"
+                type="button"
+                onClick={handleSignin}
+              >
                 Войти
               </button>
             </div>

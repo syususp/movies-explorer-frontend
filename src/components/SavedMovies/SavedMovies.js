@@ -8,82 +8,79 @@ import movieImage3 from '../../images/movieImage3.png';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 
-function SavedMovies() {
+function SavedMovies({ isLoggedIn }) {
   return (
     <>
-      <Header />
-      <main className="main-container">
+      <Header isLoggedIn={isLoggedIn} />
+      <main>
         <SearchForm />
 
-        <section className="saveMovieCardList">
-          <ul className="saveMovieCardList__container">
-            <li className="saveMovie">
-              <div className="saveMovie__container">
-                <Link
-                  to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                  target={'_blank'}
-                >
-                  <img
-                    className="saveMovie__poster-saved"
-                    src={movieImage1}
-                    alt="Сохраненный Фильм"
-                  />
-                </Link>
-                <p className="saveMovie__caption">33 слова о дизайне</p>
-                <div className="saveMovie__like-container">
-                  <button type="button" className="saveMovie__like"></button>
-                  <button
-                    type="button"
-                    className="saveMovie__like-activee"
-                  ></button>
-                </div>
-              </div>
-              <p className="saveMovie__time-line">1ч 47м</p>
+        <section className="savedMovieCardList">
+          <ul className="savedMovie">
+            <li className="savedMovie__wrapper">
+              <Link
+                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                target={'_blank'}
+                className="savedMovie__link"
+              >
+                <img
+                  className="savedMovie__image"
+                  src={movieImage1}
+                  alt="картина 33 слова о дизайне"
+                />
+              </Link>
+              <h3 className="savedMovie__name">33 слова о дизайне</h3>
+              <li className="savedMovie__duration">1ч 47м</li>
+              <button
+                className="savedMovie__deleteButton"
+                type="button"
+              ></button>
             </li>
+          </ul>
 
-            <li className="saveMovie">
-              <div className="saveMovie__container">
-                <Link
-                  to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                  target={'_blank'}
-                >
-                  <img
-                    className="saveMovie__poster-saved"
-                    src={movieImage2}
-                    alt="Киноальманах «100 лет дизайна»"
-                  />
-                </Link>
-                <p className="saveMovie__caption">
-                  Киноальманах «100 лет дизайна»
-                </p>
-                <div className="saveMovie__like-container">
-                  <button
-                    type="button"
-                    className="saveMovie__like-active"
-                  ></button>
-                </div>
-              </div>
-              <p className="saveMovie__time-line">1ч 3м</p>
+          <ul className="savedMovie">
+            <li className="savedMovie__wrapper">
+              <Link
+                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                target={'_blank'}
+                className="savedMovie__link"
+              >
+                <img
+                  className="savedMovie__image"
+                  src={movieImage2}
+                  alt="Киноальманах 100 лет дизайна"
+                />
+              </Link>
+              <h3 className="savedMovie__name">
+                Киноальманах «100 лет дизайна»
+              </h3>
+              <li className="savedMovie__duration">1ч 3м</li>
+              <button
+                className="savedMovie__deleteButton"
+                type="button"
+              ></button>
             </li>
+          </ul>
 
-            <li className="saveMovie">
-              <div className="saveMovie__container">
-                <Link
-                  to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                  target={'_blank'}
-                >
-                  <img
-                    className="saveMovie__poster-saved"
-                    src={movieImage3}
-                    alt="В погоне за Бенкси"
-                  />
-                </Link>
-                <p className="saveMovie__caption">В погоне за Бенкси</p>
-                <div className="saveMovie__like-container">
-                  <button type="button" className="saveMovie__like"></button>
-                </div>
-              </div>
-              <p className="saveMovie__time-line">1ч 42м</p>
+          <ul className="savedMovie">
+            <li className="savedMovie__wrapper">
+              <Link
+                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                target={'_blank'}
+                className="savedMovie__link"
+              >
+                <img
+                  className="savedMovie__image"
+                  src={movieImage3}
+                  alt="картина В погоне за Бенкси"
+                />
+              </Link>
+              <h3 className="savedMovie__name">В погоне за Бенкси</h3>
+              <li className="savedMovie__duration">1ч 47м</li>
+              <button
+                className="savedMovie__deleteButton"
+                type="button"
+              ></button>
             </li>
           </ul>
         </section>

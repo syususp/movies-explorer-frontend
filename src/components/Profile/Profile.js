@@ -1,36 +1,47 @@
 import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
+import { useNavigate } from 'react-router-dom';
 
-function Profile() {
+function Profile({ isLoggedIn }) {
+  const navigate = useNavigate();
+
+  function handleSignout() {
+    navigate('/signin');
+  }
+
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <main className="profile">
         <section className="profile__container">
           <h1 className="profile__title">Привет, Виталий!</h1>
           <form className="profile__form">
-            <div className="profile__inputs-container">
-              <div className="profile__lable-container">
+            <div className="profile__form-container">
+              <div className="profile__wrapper">
                 <label className="profile__name">Имя</label>
                 <input
                   className="profile__input"
                   type="text"
-                  placeholder="Имя"
+                  placeholder="Введите имя"
                   required={true}
                 />
               </div>
-              <div className="profile__line"></div>
-              <div className="profile__lable-container">
+              <div className="profile__wrapper">
                 <label className="profile__email">E-mail</label>
-                <input className="profile__input" type="email" name="email" />
+                <input
+                  className="profile__input"
+                  type="email"
+                  name="email"
+                  placeholder="Введите почту"
+                />
               </div>
             </div>
             <div className="profile__navigate">
-              <button className="profile__button-edit" type="button">
+              <button className="profile__button profile__button-edit" type="button">
                 Редактировать
               </button>
-              <button type="button" className="profile__button-text">
+              <button className="profile__button profile__button-exit" type="button" onClick={handleSignout}>
                 Выйти из аккаунта
               </button>
             </div>

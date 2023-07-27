@@ -5,7 +5,7 @@ function NavTab() {
   return (
     <ul className="navtab">
       <li className="navtab__button">
-        <a href="/#about" className="navtab__link">
+        <a href="/#promo" className="navtab__link">
           О проекте
         </a>
       </li>
@@ -15,7 +15,7 @@ function NavTab() {
         </a>
       </li>
       <li className="navtab__button">
-        <a href="/#student" className="navtab__link">
+        <a href="/#personal-info" className="navtab__link">
           Студент
         </a>
       </li>

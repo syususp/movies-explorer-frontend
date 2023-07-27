@@ -1,4 +1,11 @@
-.main__button-container {
+.movies {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1280px;
+  min-width: 320px;
+}
+
+.movies__button-container {
   width: 320px;
   height: 36px;
   flex-shrink: 0;
@@ -15,7 +22,7 @@
   cursor: pointer;
 }
 
-.movies-button {
+.movies__button {
   color: #fff;
   background-color: transparent;
   border: none;
@@ -28,7 +35,7 @@
   cursor: pointer;
 }
 
-.main__button-container:hover {
+.movies__button-container:hover {
   cursor: pointer;
   transition: 0.7s ease-in-out;
   color: #000;
@@ -37,13 +44,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main__button-container {
+  .movies__button-container {
     margin-top: 48px;
   }
 }
 
 @media screen and (max-width: 530px) {
-  .main__button-container {
+  .movies__button-container {
     width: 240px;
     height: 36px;
     margin-top: 56px;

@@ -96,7 +96,7 @@
   background: #303030;
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 768px) {
   .project-info {
     padding: 90px 50px;
     max-width: 668px;
