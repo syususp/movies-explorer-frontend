@@ -66,6 +66,8 @@
 }
 
 .personal-info__github {
+  list-style: none;
+  text-decoration: none;
   margin: 0;
   padding: 0;
   color: #fff;
@@ -87,4 +89,70 @@
 .personal-info__github:hover {
   opacity: 0.5;
   transition: 0.5s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+  .personal-info {
+    margin: 90px auto;
+    max-width: 668px;
+  }
+
+  .personal-info__role {
+    width: 100%;
+  }
+
+  .personal-info__container {
+    width: 100%;
+  }
+  .personal__avatar {
+    width: 255px;
+    height: 307px;
+  }
+
+  .personal-info__wrapper {
+    max-width: 364px;
+  }
+
+  .personal-info__name {
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+    margin-bottom: 16px;
+  }
+
+  .personal-info__title {
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+
+  .personal-info__description {
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    margin-bottom: 87px;
+  }
+
+  .personal-info__github {
+    color: #fff;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .portfolio__link-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    margin-top: 5px;
+  }
 }

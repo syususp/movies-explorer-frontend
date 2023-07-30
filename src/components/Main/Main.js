@@ -12,7 +12,7 @@ function Main({ isLoggedIn }) {
 
   return (
     <div className="main__container">
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={!isLoggedIn} />
       <main>
         <Promo />
         <AboutProject />

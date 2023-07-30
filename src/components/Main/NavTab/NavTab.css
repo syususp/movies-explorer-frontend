@@ -8,6 +8,7 @@
   transform: translateX(-50%);
   width: 308px;
   list-style: none;
+  padding: 0;
 }
 
 .navtab__button {
@@ -38,4 +39,10 @@
 
 .navtab__button:hover .navtab__link {
   color: #000;
+}
+
+@media screen and (max-width: 768px) {
+  .navtab {
+    padding-left: 0;
+  }
 }

@@ -26,7 +26,7 @@
   font-weight: 400;
   letter-spacing: -2px;
   line-height: 58px;
-  margin: 26px 0 90px;
+  margin: 90px 0 26px;
   text-align: center;
 }
 
@@ -74,10 +74,9 @@
   transition: 0.5s ease-out;
 }
 
-@media screen and (max-width: 76px) {
+@media screen and (max-width: 768px) {
   .techs__wrapper {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 90px 50px;
   }
 
   .techs__subtitle {
@@ -103,13 +102,13 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .techs__items {
     display: grid;
     grid-template-columns: 84px 84px;
     margin-top: 51px;
   }
-}
+} */
 
 @media screen and (max-width: 530px) {
   .techs__wrapper {
