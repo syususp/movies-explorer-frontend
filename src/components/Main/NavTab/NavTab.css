@@ -46,3 +46,23 @@
     padding-left: 0;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .navtab__button {
+    width: 82px;
+    height: 26px;
+  }
+
+  .navtab {
+    gap: 6px;
+    width: auto;
+    bottom: 17px;
+  }
+
+  .navtab__link {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+  }
+}

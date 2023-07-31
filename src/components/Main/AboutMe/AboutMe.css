@@ -156,3 +156,68 @@
     margin-top: 5px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .personal-info {
+    margin: 80px auto 70px;
+    max-width: calc(100% - 28px);
+  }
+
+  .personal-info__container {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .personal-info__role {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+  }
+
+  .personal-info__name {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    margin-bottom: 20px;
+  }
+
+  .personal__avatar {
+    width: 292px;
+    height: 352px;
+    position: absolute;
+    top: 60px;
+  }
+
+  .personal-info__wrapper {
+    margin-top: 385px;
+  }
+
+  .personal-info__title {
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .personal-info__description {
+    width: 292px;
+    height: 112px;
+    color: #fff;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+
+  .personal-info__wrap {
+    display: none;
+  }
+}
