@@ -126,10 +126,17 @@
 
 @media screen and (max-width: 768px) {
   .searchform {
-    padding-top: 93px;
+    max-width: 708px;
+    padding-top: 80px;
     padding-left: 30px;
     padding-right: 30px;
   }
+
+  .searchform__wrapper {
+    max-width: 654px;
+  }
+
+  
 }
 
 @media screen and (max-width: 530px) {
@@ -148,4 +155,6 @@
   .searchform__short-films {
     font-size: 11px;
   }
+
+  
 }

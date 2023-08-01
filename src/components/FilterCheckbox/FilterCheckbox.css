@@ -7,61 +7,67 @@
 }
 
 .filter-checkbox__text {
-color: #fff;
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-line-height: 18px;
-margin: 0 0 0 12px;
-padding: 0;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0 0 0 12px;
+  padding: 0;
 }
 
 .toggle {
-position: relative;
-width: 36px;
-height: 20px;
-display: inline-block;
-user-select: none;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  display: inline-block;
+  user-select: none;
 }
 
 .toggle__input {
-display: none;
+  display: none;
 }
 
 .toggle__switch {
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-transition: 0.2s;
-cursor: pointer;
-background-color: #343434;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.2s;
+  cursor: pointer;
+  background-color: #343434;
 }
 
 .toggle__switch:before {
-position: absolute;
-content: '';
-width: 16px;
-height: 16px;
-left: 2px;
-bottom: 2px;
-background-color: #fff;
-transition: 0.2s;
+  position: absolute;
+  content: '';
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #fff;
+  transition: 0.2s;
 }
 
 .toggle__input:checked + .toggle__switch:before {
-transform: translateX(16px);
+  transform: translateX(16px);
 }
 
 .toggle__input:checked + .toggle__switch {
-background-color: #2be080;
+  background-color: #2be080;
 }
 
 .toggle__round > .toggle__switch {
-border-radius: 34px;
+  border-radius: 34px;
 }
 
 .toggle__round > .toggle__switch:before {
-border-radius: 50%;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-checkbox {
+    padding-top: 40px;
+  }
 }

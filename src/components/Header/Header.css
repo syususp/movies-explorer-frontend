@@ -132,7 +132,7 @@
 
 @media screen and (max-width: 768px) {
   .header__wrapper {
-    max-width: calc(100% - 28px);
+    max-width: calc(100% - 60px);
   }
 
   .header__button-signin {
