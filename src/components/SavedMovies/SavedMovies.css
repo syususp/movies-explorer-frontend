@@ -4,8 +4,8 @@
   padding-right: 70px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 24px;
-  grid-row-gap: 42px;
+  grid-column-gap: 26px;
+  grid-row-gap: 39px;
   padding-bottom: 14px;
 }
 
@@ -18,11 +18,11 @@
   list-style-type: none;
 }
 
-.savedMovie__list-style {
+/* .savedMovie__list-style {
   list-style: none;
   padding: 0;
   margin: 0;
-}
+} */
 
 .savedMovie__wrapper {
   margin: 0;
@@ -82,8 +82,8 @@
 .savedMovie__duration {
   color: #8b8b8b;
   font-size: 11px;
-  width: 44px;
-  height: 12px;
+  width: 47px;
+  height: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: 10px;
@@ -129,9 +129,15 @@
     gap: 30px;
     justify-items: center;
   }
+
+  .savedMovie__image {
+    width: 339px;
+    height: 190px;
+    margin-bottom: 0px;
+  }
 }
 
-@media screen and (max-width: 830px) {
+/* @media screen and (max-width: 830px) {
   .savedMovieCardList {
     grid-template-columns: 1fr;
     padding-left: 10px;
@@ -140,7 +146,7 @@
     gap: 14px;
     justify-items: center;
   }
-}
+} */
 
 @media screen and (max-width: 768px) {
   .savedMovie__wrapper {
@@ -149,14 +155,16 @@
 
   .savedMovie__duration {
     margin-bottom: 14px;
+    margin-top: 22px;
+    margin-right: 0;
   }
 
   .savedMovieCardList {
     grid-template-columns: 1fr 1fr;
     padding-left: 30px;
     padding-right: 30px;
-    padding-top: 50px;
-    gap: 29px;
+    padding-top: 0;
+    gap: 18px 25px;
     padding-bottom: 30px;
   }
 
@@ -188,19 +196,18 @@
   }
 
   .savedMovie__name {
-    margin-left: 14px;
+    margin: 5px 0 0 0;
     display: flex;
-    width: 260px;
-    margin-top: 8px;
+    width: 250px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 667px) {
   .savedMovieCardList {
     grid-template-columns: 1fr;
     padding-left: 10px;
     padding-right: 10px;
-    gap: 12px;
+    gap: 10px;
     padding-top: 41px;
     justify-content: center;
     padding-bottom: 14px;
@@ -218,7 +225,7 @@
   }
 
   .savedMovie__wrapper {
-    justify-content: normal;
+    justify-content: space-between;
     gap: 6px;
   }
 
@@ -229,18 +236,8 @@
   .savedMovie__duration {
     font-size: 10px;
     margin-bottom: 18px;
-  }
-
-  .savedMovie:nth-child(6) {
-    display: none;
-  }
-
-  .savedMovie:nth-child(7) {
-    display: none;
-  }
-
-  .savedMovie:nth-child(8) {
-    display: none;
+    margin-top: 12px;
+    width: 46px;
   }
 }
 
@@ -255,6 +252,5 @@
   }
 
   .savedMovie__name {
-    margin-top: 0;
-  }
+    margin-top: -6px;  }
 }

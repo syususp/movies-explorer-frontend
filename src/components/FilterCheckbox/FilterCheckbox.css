@@ -71,3 +71,18 @@
     padding-top: 40px;
   }
 }
+
+@media screen and (max-width: 667px) {
+  .filter-checkbox__text {
+    color: #fff;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+  }
+
+  .filter-checkbox {
+    padding-top: 47px;
+    padding-bottom: 38px;
+  }
+}

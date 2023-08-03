@@ -163,3 +163,42 @@
     display: flex;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .header__wrapper {
+    max-width: calc(100% - 28px);
+  }
+
+  .header__menu-image {
+    width: 40px;
+    height: 38px;
+  }
+
+  .header__button-signin {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    width: 54px;
+    height: 26px;
+    margin-left: 14px;
+  }
+
+  .header__button-signup {
+    text-align: right;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .header__links-wrapper {
+    display: none;
+  }
+
+  .header__menu,
+  .header__menu-button {
+    display: flex;
+  }
+}

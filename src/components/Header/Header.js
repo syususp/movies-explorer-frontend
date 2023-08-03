@@ -65,8 +65,8 @@ function Header({ isLoggedIn }) {
                 </Link>
               </div>
             )}
-            <button className="header__menu-button" onClick={toggleMenu}> {/* Кнопка бургер-меню */}
-              <img src={menuIcon} alt="Menu" />
+            <button className="header__menu-button" onClick={toggleMenu}>
+              <img src={menuIcon} alt="Menu" className="header__menu-image" />
             </button>
           </>
         ) : (
