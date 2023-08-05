@@ -15,7 +15,7 @@
   width: 396px;
   padding: 0;
   margin: 0 auto;
-  gap: 40px;
+  gap: 38px;
 }
 
 .auth__logo {
@@ -78,7 +78,7 @@
 
 .auth__input:focus {
   border-bottom-color: #2be080;
-  outline: none; 
+  outline: none;
 }
 
 .auth__submit {
@@ -131,4 +131,61 @@
   border: none;
   margin: 0 0 0 6px;
   padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .auth {
+    margin-top: 232px;
+  }
+
+  .auth__label:last-of-type {
+    margin-bottom: 194px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .auth {
+    margin: 56px auto 0;
+    width: 260px;
+  }
+  .auth__container {
+    align-items: center;
+    gap: 63.5px;
+  }
+
+  .auth__title {
+    align-self: center;
+    transform: translateY(-18px);
+  }
+
+  .auth__label:last-of-type {
+    margin-bottom: 282px;
+  }
+
+  .auth__submit {
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .signup-block__button {
+    color: #4285f4;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .signup-block__text {
+    color: #8b8b8b;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 }
