@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   align-items: center;
-  margin: 70px auto;
+  margin: 232px auto;
 }
 
 .signup__container {
@@ -15,7 +15,7 @@
   width: 396px;
   padding: 0;
   margin: 0 auto;
-  gap: 40px;
+  gap: 38px;
 }
 
 .signup__logo {
@@ -61,9 +61,9 @@
   background-color: transparent;
   width: 100%;
   height: 14px;
-  margin: 5px 0 24px 0;
+  margin: 6px 0 24px 0;
   padding: 0;
-  padding-bottom: 13px;
+  padding-bottom: 11px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -80,9 +80,14 @@
   color: #ee3465;
 }
 
+input[type='password'] {
+  font-size: 5px;
+  letter-spacing: 4px;
+}
+
 .signup__input:focus {
   border-bottom-color: #2be080;
-  outline: none; 
+  outline: none;
 }
 
 .signup__error {
