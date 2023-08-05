@@ -3,6 +3,7 @@ import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../images/icon.svg';
 import menuIcon from '../../images/menu-icon.svg'; // Иконка для бургер-меню
+import closeButton from '../../images/closeButton.svg'
 
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ function Header({ isLoggedIn }) {
     navigate('/signin');
   };
 
-  const toggleMenu = () => { // обработчик клика для бургер-меню
+  const toggleMenu = () => {
+    // обработчик клика для бургер-меню
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -27,23 +29,37 @@ function Header({ isLoggedIn }) {
         {isLoggedIn ? (
           <>
             {isMenuOpen ? (
-              <div className="header__menu"> {/* Бургер-меню */}
-                <Link to="/movies" className="header__link">
-                  Фильмы
-                </Link>
-                <Link to="/saved-movies" className="header__link">
-                  Сохраненные фильмы
-                </Link>
-                <Link to="/profile" className="header__link">
-                  Аккаунт
-                </Link>
-                <Link to="/profile" className="header__account-icon-wrapper">
+              <div className="header__menu">
+                <button className="header__menu-close-button" onClick={toggleMenu}>
                   <img
-                    className="header__account-icon"
-                    src={icon}
-                    alt="Иконка аккаунта"
+                    src={closeButton}
+                    alt="Закрыть меню"
+                    className="header__menu-image"
                   />
-                </Link>
+                </button>
+                <div className="header__menu-wrapper">
+                  <Link to="/" className="header__menu-link">
+                    Главная
+                  </Link>
+                  <Link to="/movies" className="header__menu-link">
+                    Фильмы
+                  </Link>
+                  <Link to="/saved-movies" className="header__menu-link">
+                    Сохранённые фильмы
+                  </Link>
+                </div>
+                <div className="header__menu-account-wrapper">
+                  <Link to="/profile" className="header__menu-account-link">
+                    Аккаунт
+                  </Link>
+                  <Link to="/profile" className="header__account-icon-wrapper">
+                    <img
+                      className="header__account-icon"
+                      src={icon}
+                      alt="Иконка аккаунта"
+                    />
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="header__links-wrapper">

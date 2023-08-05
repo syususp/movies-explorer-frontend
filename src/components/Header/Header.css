@@ -113,12 +113,59 @@
   flex-direction: column;
   position: absolute;
   top: 0;
-  right: -23px;
+  right: 0;
   background-color: #202020;
-  width: 70%;
-  height: 100%;
+  width: 520px;
+  height: 1024px;
   padding: 0;
-  z-index: 1;
+  z-index: 3;
+}
+
+.header__menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 159px auto 0;
+  padding: 0;
+  max-width: 340px;
+  gap: 22px;
+  align-items: center;
+}
+
+.header__menu-link {
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  margin: 0;
+  padding: 0 0 4px 0;
+  width: max-content;
+  border-bottom: 2px solid transparent;
+}
+
+.header__menu-account-link {
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-style: normal;
+  font-weight: 500;
+  text-decoration: none;
+  margin: 0 20px 0 0;
+  padding: 0;
+  width: max-content;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header__menu-account-link:hover,
+.header__menu-link:hover {
+  border-bottom-color: #fff;
 }
 
 .header__menu-button {
@@ -128,6 +175,30 @@
   padding: 0;
   margin: 0;
   cursor: pointer;
+}
+
+.header__menu-close-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+}
+
+.header__menu-account-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 615px 0 0 0;
+  padding: 0;
+  align-items: center;
+}
+
+.header__menu-button:hover,
+.header__menu-close-button:hover {
+  filter: brightness(0.7);
 }
 
 @media screen and (max-width: 768px) {
@@ -161,6 +232,8 @@
   .header__menu,
   .header__menu-button {
     display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
