@@ -157,7 +157,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 720px) {
   .personal-info {
     margin: 80px auto 70px;
     max-width: calc(100% - 28px);
@@ -191,10 +191,14 @@
     height: 352px;
     position: absolute;
     top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .personal-info__wrapper {
     margin-top: 385px;
+    max-width: 292px;
+    align-self: center;
   }
 
   .personal-info__title {

@@ -9,7 +9,7 @@ function Portfolio() {
           <li className="portfolio__item">
             <a
               className="portfolio__link"
-              href="https://github.com/syususp/how-to-learn"
+              href="https://github.com/syususp/mesto"
               target="_blank"
               rel="noreferrer"
             >

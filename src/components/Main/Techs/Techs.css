@@ -102,15 +102,7 @@
   }
 }
 
-/* @media screen and (max-width: 768px) {
-  .techs__items {
-    display: grid;
-    grid-template-columns: 84px 84px;
-    margin-top: 51px;
-  }
-} */
-
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 720px) {
   .techs__wrapper {
     padding: 50px 14px 60px;
     background-color: #202020;
