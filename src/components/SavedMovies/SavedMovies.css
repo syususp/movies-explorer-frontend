@@ -18,12 +18,6 @@
   list-style-type: none;
 }
 
-/* .savedMovie__list-style {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-} */
-
 .savedMovie__wrapper {
   margin: 0;
   display: flex;
@@ -137,18 +131,7 @@
   }
 }
 
-/* @media screen and (max-width: 830px) {
-  .savedMovieCardList {
-    grid-template-columns: 1fr;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 19px;
-    gap: 14px;
-    justify-items: center;
-  }
-} */
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 799px) {
   .savedMovie__wrapper {
     margin-bottom: 12px;
   }
@@ -252,5 +235,6 @@
   }
 
   .savedMovie__name {
-    margin-top: -6px;  }
+    margin-top: -6px;
+  }
 }
