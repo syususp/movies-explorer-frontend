@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 0 70px 125px;
+  padding: 0 70px 0px;
   display: flex;
   flex-direction: column;
 }
@@ -75,7 +75,7 @@
   }
 
   .portfolio__item:last-of-type {
-    padding-bottom: 115px;
+    padding-bottom: 113px;
   }
 }
 
@@ -103,6 +103,6 @@
   }
 
   .portfolio__item:last-of-type {
-    padding-bottom: 93px;
+    padding-bottom: 91px;
   }
 }

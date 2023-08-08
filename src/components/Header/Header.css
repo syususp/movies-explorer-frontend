@@ -209,25 +209,6 @@
     max-width: calc(100% - 60px);
   }
 
-  /* .header__button-signin {
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    width: 54px;
-    height: 26px;
-    margin-left: 14px;
-  } */
-
-  /* .header__button-signup {
-    text-align: right;
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-  } */
-
   .header__links-wrapper {
     display: none;
   }
@@ -283,7 +264,6 @@
 
   .header__button-signup {
     text-align: right;
-    font-family: Inter;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;

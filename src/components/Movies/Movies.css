@@ -18,7 +18,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: -30px;
   cursor: pointer;
 }
 
@@ -46,6 +46,7 @@
 @media screen and (max-width: 768px) {
   .movies__button-container {
     margin-top: 5px;
+    margin-bottom: 100px;
   }
 }
 
