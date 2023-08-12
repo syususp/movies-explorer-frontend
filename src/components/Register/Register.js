@@ -3,56 +3,41 @@ import './Register.css';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import { signin, signup } from '../../utils/MainApi';
+import { useFormWithValidation } from '../../utils/validationHooks';
 
 function Register() {
   const navigate = useNavigate();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSignin = () => {
     navigate('/signin');
   };
 
-  const [formData, setFormData] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-
-  const [isFormValid, setIsFormValid] = React.useState(false);
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }
-
-  React.useEffect(() => {
-    const { name, email, password } = formData;
-    const isValid = name && email && password;
-    setIsFormValid(isValid);
-  }, [formData]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    signup(formData)
+    const { name, email, password } = values;
+
+    if (!isValid) {
+      console.log('Form is not valid');
+      return;
+    }
+
+    signup({ name, email, password })
       .then((data) => {
         console.log('register.js signup method: ', data);
-        signin({ email: formData.email, password: formData.password }).then(
-          (data) => {
-            console.log('register.js signin method: ', data);
-            if (data.token) {
-              localStorage.setItem('jwt', data.token);
-              navigate('/movies');
-            } else {
-              console.error(data.message);
-            }
-          },
-        );
+        signin({ email, password }).then((data) => {
+          console.log('register.js signin method: ', data);
+          if (data.token) {
+            localStorage.setItem('jwt', data.token);
+            navigate('/movies');
+          } else {
+            console.error(data.message);
+          }
+        });
       })
       .catch((error) => {
-        console.log('Ошибка в методе hendleSubmit', error);
+        console.log('Error in handleSubmit method: ', error);
       });
   };
 
@@ -66,7 +51,6 @@ function Register() {
           <h2 className="signup__title">Добро пожаловать!</h2>
           <form
             className={`signup__form`}
-            onChange={handleChange}
             onSubmit={handleSubmit}
           >
             <label htmlFor="signupName" className="signup__label">
@@ -80,7 +64,10 @@ function Register() {
                 minLength="8"
                 maxLength="21"
                 required
+                value={values.name || ''}
+                onChange={handleChange}
               />
+              {errors.name && <span className="signup__error">{errors.name}</span>}
             </label>
             <label htmlFor="signupEmail" className="signup__label">
               E-mail
@@ -93,7 +80,10 @@ function Register() {
                 minLength="2"
                 maxLength="40"
                 required
+                value={values.email || ''}
+                onChange={handleChange}
               />
+              {errors.email && <span className="signup__error">{errors.email}</span>}
             </label>
             <label htmlFor="signupPassword" className="signup__label">
               Пароль
@@ -106,13 +96,15 @@ function Register() {
                 minLength="8"
                 maxLength="21"
                 required
+                value={values.password || ''}
+                onChange={handleChange}
               />
-              <span className="signup__error">Что-то пошло не так...</span>
+              {errors.password && <span className="signup__error">{errors.password}</span>}
             </label>
             <button
               type="submit"
               className="signup__submit"
-              disabled={!isFormValid}
+              disabled={!isValid}
             >
               Зарегистрироваться
             </button>
