@@ -2,12 +2,58 @@ import React from 'react';
 import './Register.css';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
+import { signin, signup } from '../../utils/MainApi';
 
-function Register(props) {
+function Register() {
   const navigate = useNavigate();
 
   const handleSignin = () => {
     navigate('/signin');
+  };
+
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [isFormValid, setIsFormValid] = React.useState(false);
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  React.useEffect(() => {
+    const { name, email, password } = formData;
+    const isValid = name && email && password;
+    setIsFormValid(isValid);
+  }, [formData]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    signup(formData)
+      .then((data) => {
+        console.log('register.js signup method: ', data);
+        signin({ email: formData.email, password: formData.password }).then(
+          (data) => {
+            console.log('register.js signin method: ', data);
+            if (data.token) {
+              localStorage.setItem('jwt', data.token);
+              navigate('/movies');
+            } else {
+              console.error(data.message);
+            }
+          },
+        );
+      })
+      .catch((error) => {
+        console.log('Ошибка в методе hendleSubmit', error);
+      });
   };
 
   return (
@@ -18,8 +64,12 @@ function Register(props) {
             <img src={logo} alt="Логотип проекта" className="signup__logo" />
           </Link>
           <h2 className="signup__title">Добро пожаловать!</h2>
-          <form className={`signup__form`}>
-            <label htmlFor="signupPassword" className="signup__label">
+          <form
+            className={`signup__form`}
+            onChange={handleChange}
+            onSubmit={handleSubmit}
+          >
+            <label htmlFor="signupName" className="signup__label">
               Имя
               <input
                 id="signupName"
@@ -59,7 +109,11 @@ function Register(props) {
               />
               <span className="signup__error">Что-то пошло не так...</span>
             </label>
-            <button type="submit" className="signup__submit">
+            <button
+              type="submit"
+              className="signup__submit"
+              disabled={!isFormValid}
+            >
               Зарегистрироваться
             </button>
             <div className="signin-block">
