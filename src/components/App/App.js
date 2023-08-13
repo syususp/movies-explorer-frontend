@@ -18,7 +18,7 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
-      getProfile()
+      getProfile(token)
         .then((userData) => {
           setIsLoggedIn(true);
           setCurrentUser(userData);
@@ -35,32 +35,17 @@ function App() {
 
   return (
     <div className="page">
-      <button onClick={() => console.log(isLoggedIn)}>check login</button>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route
-            path="/signin"
-            element={
-              <Login
-              // onLogin={handleLogin}
-              />
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <Register
-              // onRegister={handleRegister}
-              />
-            }
-          />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           <Route
             path="/profile"
             element={
               <ProtectedRoute
                 loggedIn={isLoggedIn}
-                element={<Profile isLoggedIn={isLoggedIn} />}
+                element={<Profile isLoggedIn={isLoggedIn} name={currentUser.name} />}
               />
             }
           />
