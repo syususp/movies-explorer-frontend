@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { getMovies } from '../../utils/ApiFilm';
 import { filterMovies } from '../../utils/filterMovies';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function MoviesCardList({
   query,
@@ -16,6 +17,7 @@ function MoviesCardList({
   const [error, setError] = useState(null);
   const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(4);
   const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -123,6 +125,17 @@ function MoviesCardList({
                 altText={movie.nameRU}
                 movieName={movie.nameRU}
                 movieDuration={movie.duration}
+                country={movie.country}
+                director={movie.director}
+                year={movie.year}
+                description={movie.description}
+                image={movie.image.url}
+                trailerLink={movie.trailerLink}
+                thumbnail={movie.image.url}
+                owner={currentUser._id}
+                movieId={movie.id}
+                nameRU={movie.nameRU}
+                nameEN={movie.nameEN}
               />
             ))}
           </React.Fragment>

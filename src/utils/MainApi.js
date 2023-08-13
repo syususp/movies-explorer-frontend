@@ -61,12 +61,13 @@ export const saveMovies = (data) => {
       duration: data.duration,
       year: data.year,
       description: data.description,
-      image: `https://api.nomoreparties.co/${data.image.url}`,
+      image: `https://api.nomoreparties.co/${data.imageUrl}`,
       trailerLink: data.trailerLink,
-      thumbnail: `https://api.nomoreparties.co/${data.image.url}`,
-      movieId: data.id,
+      thumbnail: `https://api.nomoreparties.co/${data.imageUrl}`,
+      movieId: data.movieId,
       nameRU: data.nameRU,
       nameEN: data.nameEN,
+      owner: data.owner,
     }),
   }).then((response) => response.json());
 };
