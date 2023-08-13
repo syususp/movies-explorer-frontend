@@ -1,118 +1,117 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
-import words33 from '../../images/33words.png';
-import let100 from '../../images/100let.png';
-import benksy from '../../images/banksy.png';
-import baskiya from '../../images/baskiya.png';
-import beg from '../../images/beg.png';
-import booksales from '../../images/booksales.png';
-import aboutGermany from '../../images/aboutGermany.png';
-import iggy from '../../images/iggi.png';
-import djenis from '../../images/djenis.png';
-import beforeJump from '../../images/beforeJump.png';
-import dogCalled from '../../images/dogCalled.png';
-import sound from '../../images/sound.png';
+import Preloader from '../Preloader/Preloader';
+import { getMovies } from '../../utils/ApiFilm';
 
 function MoviesCardList() {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(4);
+  const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+
+    getMovies()
+      .then((data) => {
+        setMovies(data);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+    
+      if (windowWidth > 1240) {
+        setAdjustedVisibleRows(12);
+      } else if (windowWidth > 480) {
+        setAdjustedVisibleRows(8);
+      } else {
+        setAdjustedVisibleRows(5);
+      }
+    };
+    
+
+    let resizeTimeout;
+
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        handleResize();
+      }, 300);
+    };
+
+    handleResize();
+    window.addEventListener('resize', debouncedResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+    };
+  }, []);
+
+  const showMoreMovies = () => {
+    let increment;
+
+    if (window.innerWidth <= 480) {
+      increment = 1;
+    } else if (window.innerWidth <= 1240) {
+      increment = 2;
+    } else {
+      increment = 3;
+    }
+
+    if (adjustedVisibleRows + increment <= movies.length) {
+      setAdjustedVisibleRows(adjustedVisibleRows + increment);
+    } else {
+      setAdjustedVisibleRows(movies.length);
+      setAreAllMoviesShown(true);
+    }
+  };
+
   return (
+    <>
     <section className="movieCardList">
-      <MovieCard
-        imageUrl={words33}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина 33 слова о дизайне'
-        movieName='33 слова о дизайне'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={let100}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='Киноальманах 100 лет дизайна'
-        movieName='Киноальманах «100 лет дизайна»'
-        movieDuration='1ч 3м'
-      />
-
-      <MovieCard
-        imageUrl={benksy}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина В погоне за Бенкси'
-        movieName='В погоне за Бенкси'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={baskiya}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Баския - Взрыв реальности'
-        movieName='Баския: Взрыв реальности'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={beg}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Бег это свобода'
-        movieName='Бег это свобода'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={booksales}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Книготорговцы'
-        movieName='Книготорговцы'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={aboutGermany}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Когда я думаю о Германии ночью'
-        movieName='Когда я думаю о Германии ночью'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={iggy}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Gimme Danger: История Игги и The Stooge'
-        movieName='Gimme Danger: История Игги и The Stooge'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={djenis}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Дженис: Маленькая девочка грустит'
-        movieName='Дженис: Маленькая девочка грустит'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={beforeJump}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Соберись перед прыжком'
-        movieName='Соберись перед прыжком'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={dogCalled}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Пи Джей Харви: A dog called money'
-        movieName='Пи Джей Харви: A dog called money'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={sound}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина По волнам: Искусство звука в кино'
-        movieName='По волнам: Искусство звука в кино'
-        movieDuration='1ч 47м'
-      />
+      {isLoading && <Preloader />}
+      {!isLoading && error && (
+        <p>
+          Во время запроса произошла ошибка. Возможно, проблема с соединением
+          или сервер недоступен. Подождите немного и попробуйте ещё раз.
+        </p>
+      )}
+      {!isLoading && !error && movies.length === 0 && <p>Ничего не найдено</p>}
+      {!isLoading && !error && (
+        <React.Fragment>
+          {movies.slice(0, adjustedVisibleRows).map((movie) => (
+            <MovieCard
+              key={movie.id}
+              imageUrl={movie.image.url}
+              movieUrl={movie.trailerLink}
+              altText={movie.nameRU}
+              movieName={movie.nameRU}
+              movieDuration={movie.duration}
+            />
+          ))}
+          
+        </React.Fragment>
+      )}
     </section>
+    {!areAllMoviesShown && (
+      <div className="movieCardList__button-container" onClick={showMoreMovies}>
+        <button type="button" className="movieCardList__button">
+          Еще
+        </button>
+      </div>
+    )}
+    </>
   );
 }
 

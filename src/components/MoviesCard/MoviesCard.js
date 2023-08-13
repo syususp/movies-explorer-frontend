@@ -3,6 +3,12 @@ import likeActive from '../../images/likeActive.svg';
 import { Link } from 'react-router-dom';
 import './MoviesCard.css';
 
+function formatDuration(minutes) {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}ч ${remainingMinutes}м`;
+}
+
 function MovieCard({ imageUrl, movieUrl, altText, movieName, movieDuration }) {
   const [isSaved, setIsSaved] = useState(false);
 
@@ -20,12 +26,12 @@ function MovieCard({ imageUrl, movieUrl, altText, movieName, movieDuration }) {
         >
           <img
             className="movie__image"
-            src={imageUrl}
+            src={`https://api.nomoreparties.co${imageUrl}`}
             alt={altText}
           />
         </Link>
         <h3 className="movie__name">{movieName}</h3>
-        <p className="movie__duration">{movieDuration}</p>
+        <p className="movie__duration">{formatDuration(movieDuration)}</p>
         {isSaved ? (
           <img src={likeActive} alt="Saved" className="movie__likeButton" onClick={handleSaveClick} />
         ) : (
