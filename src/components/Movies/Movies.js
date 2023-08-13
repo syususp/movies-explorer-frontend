@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Movies.css';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
