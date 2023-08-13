@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../images/icon.svg';
-import menuIcon from '../../images/menu-icon.svg'; // Иконка для бургер-меню
+import menuIcon from '../../images/menu-icon.svg';
 import closeButton from '../../images/closeButton.svg'
 
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // состояние бургер-меню
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSignup = () => {
     navigate('/signup');
@@ -18,7 +18,6 @@ function Header({ isLoggedIn }) {
   };
 
   const toggleMenu = () => {
-    // обработчик клика для бургер-меню
     setIsMenuOpen(!isMenuOpen);
   };
 
