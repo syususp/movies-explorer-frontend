@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
-  const [isChecked, setIsChecked] = useState(true);
-
+function FilterCheckbox({ isChecked, onChange }) {
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    const newState = !isChecked;
+    onChange(newState);
+    localStorage.setItem('storedCheckboxState', JSON.stringify(newState));
   };
 
   return (

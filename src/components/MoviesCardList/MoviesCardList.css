@@ -47,6 +47,16 @@
   border-radius: 10px;
 }
 
+.movieCardList__hint {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+}
+
 @media screen and (max-width: 1240px) {
   .movieCardList {
     grid-template-columns: 1fr 1fr;

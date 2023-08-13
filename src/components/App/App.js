@@ -12,7 +12,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { getProfile } from '../../utils/MainApi';
 
 function App() {
-  // const navigate = useNavigate();
   const [currentUser, setCurrentUser] = React.useState([]);
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
@@ -33,30 +32,6 @@ function App() {
       setIsLoggedIn(false);
     }
   }, []);
-
-  // function handleLogin(password, email) {
-  //   signin.then((checkedData) => {
-  //       if (checkedData.token) {
-  //         localStorage.setItem('jwt', checkedData.token);
-  //         setIsLoggedIn(true);
-  //         api.initializeApi(checkedData.token);
-  //         navigate('/');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // }
-
-  // function handleRegister(name, password, email) {
-  //   api.signup
-  //     .then((res) => {
-  //       navigate('/movies', { replace: true });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // }
 
   return (
     <div className="page">
@@ -85,9 +60,7 @@ function App() {
             element={
               <ProtectedRoute
                 loggedIn={isLoggedIn}
-                element={
-                  <Profile isLoggedIn={isLoggedIn}/>
-                }
+                element={<Profile isLoggedIn={isLoggedIn} />}
               />
             }
           />

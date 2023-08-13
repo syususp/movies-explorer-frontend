@@ -3,8 +3,14 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { getMovies } from '../../utils/ApiFilm';
+import { filterMovies } from '../../utils/filterMovies';
 
-function MoviesCardList() {
+function MoviesCardList({
+  query,
+  isShortMoviesChecked,
+  setQuery,
+  setIsShortMoviesChecked,
+}) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,22 +21,30 @@ function MoviesCardList() {
     setIsLoading(true);
     setError(null);
 
-    getMovies()
-      .then((data) => {
-        setMovies(data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    const storedMovies = JSON.parse(localStorage.getItem('storedMovies'));
+
+    if (storedMovies) {
+      setMovies(storedMovies);
+      setIsLoading(false);
+    } else {
+      getMovies()
+        .then((data) => {
+          setMovies(data);
+          localStorage.setItem('storedMovies', JSON.stringify(data));
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   }, []);
 
   useEffect(() => {
     const handleResize = () => {
       const windowWidth = window.innerWidth;
-    
+
       if (windowWidth > 1240) {
         setAdjustedVisibleRows(12);
       } else if (windowWidth > 480) {
@@ -39,7 +53,6 @@ function MoviesCardList() {
         setAdjustedVisibleRows(5);
       }
     };
-    
 
     let resizeTimeout;
 
@@ -58,6 +71,16 @@ function MoviesCardList() {
     };
   }, []);
 
+  const visibleMovies = filterMovies(movies, query, isShortMoviesChecked);
+
+  useEffect(() => {
+    if (adjustedVisibleRows >= visibleMovies.length) {
+      setAreAllMoviesShown(true);
+    } else {
+      setAreAllMoviesShown(false);
+    }
+  }, [visibleMovies, adjustedVisibleRows]);
+
   const showMoreMovies = () => {
     let increment;
 
@@ -69,48 +92,52 @@ function MoviesCardList() {
       increment = 3;
     }
 
-    if (adjustedVisibleRows + increment <= movies.length) {
+    if (adjustedVisibleRows + increment <= visibleMovies.length) {
       setAdjustedVisibleRows(adjustedVisibleRows + increment);
     } else {
-      setAdjustedVisibleRows(movies.length);
+      setAdjustedVisibleRows(visibleMovies.length);
       setAreAllMoviesShown(true);
     }
   };
 
   return (
     <>
-    <section className="movieCardList">
-      {isLoading && <Preloader />}
-      {!isLoading && error && (
-        <p>
-          Во время запроса произошла ошибка. Возможно, проблема с соединением
-          или сервер недоступен. Подождите немного и попробуйте ещё раз.
-        </p>
+      <section className="movieCardList">
+        {isLoading && <Preloader />}
+        {!isLoading && error && (
+          <p className="movieCardList__hint">
+            Во время запроса произошла ошибка. Возможно, проблема с соединением
+            или сервер недоступен. Подождите немного и попробуйте ещё раз.
+          </p>
+        )}
+        {!isLoading && !error && visibleMovies.length === 0 && (
+          <p className="movieCardList__hint">Ничего не найдено</p>
+        )}
+        {!isLoading && !error && (
+          <React.Fragment>
+            {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => (
+              <MovieCard
+                key={movie.id}
+                imageUrl={movie.image.url}
+                movieUrl={movie.trailerLink}
+                altText={movie.nameRU}
+                movieName={movie.nameRU}
+                movieDuration={movie.duration}
+              />
+            ))}
+          </React.Fragment>
+        )}
+      </section>
+      {!areAllMoviesShown && (
+        <div
+          className="movieCardList__button-container"
+          onClick={showMoreMovies}
+        >
+          <button type="button" className="movieCardList__button">
+            Еще
+          </button>
+        </div>
       )}
-      {!isLoading && !error && movies.length === 0 && <p>Ничего не найдено</p>}
-      {!isLoading && !error && (
-        <React.Fragment>
-          {movies.slice(0, adjustedVisibleRows).map((movie) => (
-            <MovieCard
-              key={movie.id}
-              imageUrl={movie.image.url}
-              movieUrl={movie.trailerLink}
-              altText={movie.nameRU}
-              movieName={movie.nameRU}
-              movieDuration={movie.duration}
-            />
-          ))}
-          
-        </React.Fragment>
-      )}
-    </section>
-    {!areAllMoviesShown && (
-      <div className="movieCardList__button-container" onClick={showMoreMovies}>
-        <button type="button" className="movieCardList__button">
-          Еще
-        </button>
-      </div>
-    )}
     </>
   );
 }
