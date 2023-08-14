@@ -11,7 +11,6 @@ function formatDuration(minutes) {
 }
 
 function MovieCard({
-  imageUrl,
   movieUrl,
   altText,
   movieName,
@@ -27,9 +26,8 @@ function MovieCard({
   movieId,
   nameRU,
   nameEN,
-  onDelete, 
+  onDelete,
 }) {
-
   const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveClick = () => {
@@ -40,7 +38,7 @@ function MovieCard({
         duration: movieDuration,
         year,
         description,
-        image: imageUrl,
+        image,
         trailerLink,
         thumbnail,
         owner,
@@ -48,16 +46,23 @@ function MovieCard({
         nameRU,
         nameEN,
       };
-console.log('movieDATA',movieData);
+
+      console.log('movieData in moviesCard: ', movieData);
       saveMovies(movieData).then((response) => {
         setIsSaved(true);
-        console.log(owner);
-        console.log('imageURL in moviesCard: ', image);
       });
     } else {
       setIsSaved(false);
     }
   };
+
+  function getFullImageUrl(image) {
+    const prefix = 'https://api.nomoreparties.co';
+    if (image.startsWith(prefix)) {
+      return image;
+    }
+    return `${prefix}${image}`;
+  }
 
   return (
     <ul className="movie">
@@ -65,8 +70,8 @@ console.log('movieDATA',movieData);
         <Link to={trailerLink} target={'_blank'} className="movie__link">
           <img
             className="movie__image"
-            src={`https://api.nomoreparties.co${image}`}
-            alt={nameRU}
+            src={getFullImageUrl(image)}
+            alt={altText}
           />
         </Link>
         <h3 className="movie__name">{nameRU}</h3>

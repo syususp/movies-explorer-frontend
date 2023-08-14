@@ -25,9 +25,7 @@ function Register() {
 
     signup({ name, email, password })
       .then((data) => {
-        console.log('register.js signup method: ', data);
         signin({ email, password }).then((data) => {
-          console.log('register.js signin method: ', data);
           if (data.token) {
             localStorage.setItem('jwt', data.token);
             navigate('/movies');

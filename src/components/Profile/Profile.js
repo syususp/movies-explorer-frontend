@@ -29,7 +29,6 @@ function Profile({ isLoggedIn }) {
           }, 1000);
           setInitialName(response.name);
         } else {
-          console.log(response);
           setMessage({ text: 'Error updating profile', isError: true });
         }
       })

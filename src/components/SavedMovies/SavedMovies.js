@@ -13,8 +13,8 @@ function SavedMovies({ isLoggedIn }) {
   useEffect(() => {
     getSaveMovies()
       .then((data) => {
+        console.log('API response:', data);
         setSavedMovies(data);
-        console.log('savedmovies data =>', data);
       })
       .catch((error) => {
         console.error('Error fetching saved movies:', error);
@@ -39,6 +39,8 @@ function SavedMovies({ isLoggedIn }) {
     movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  console.log('filteredMovies: ', filteredMovies);
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
@@ -46,25 +48,29 @@ function SavedMovies({ isLoggedIn }) {
         <SearchForm onSearch={handleSearch} />
 
         <section className="savedMovieCardList">
-          {filteredMovies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              imageUrl={movie.image.url}
-              movieUrl={movie.trailerLink}
-              altText={movie.nameRU}
-              movieName={movie.nameRU}
-              movieDuration={movie.duration}
-              onDelete={() => handleDeleteMovie(movie._id)}
-              country={movie.country}
-              director={movie.director}
-              year={movie.year}
-              description={movie.description}
-              movieId={movie.movieId}
-              nameRU={movie.nameRU}
-              nameEN={movie.nameEN}
-              owner={movie.owner}
-            />
-          ))}
+          {filteredMovies.map((movie) => {
+            console.log('movieeeee', movie);
+            return (
+              <MovieCard
+                key={movie._id}
+                image={movie.image}
+                thumbnailUrl={movie.thumbnail}
+                movieUrl={movie.trailerLink}
+                altText={movie.nameRU}
+                movieName={movie.nameRU}
+                movieDuration={movie.duration}
+                onDelete={() => handleDeleteMovie(movie._id)}
+                country={movie.country}
+                director={movie.director}
+                year={movie.year}
+                description={movie.description}
+                movieId={movie.movieId}
+                nameRU={movie.nameRU}
+                nameEN={movie.nameEN}
+                owner={movie.owner}
+              />
+            );
+          })}
         </section>
       </main>
       <Footer />

@@ -25,7 +25,6 @@ export const getProfile = (token) => {
   if (!token) {
     throw new Error('Token is missing or undefined');
   }
-  console.log(55, token);
   return fetch(`${options.baseUrl}/users/me`, {
     method: 'GET',
     headers: {
@@ -61,9 +60,9 @@ export const saveMovies = (data) => {
       duration: data.duration,
       year: data.year,
       description: data.description,
-      image: `https://api.nomoreparties.co/${data.imageUrl}`,
+      image: `https://api.nomoreparties.co/${data.image}`,
       trailerLink: data.trailerLink,
-      thumbnail: `https://api.nomoreparties.co/${data.imageUrl}`,
+      thumbnail: `https://api.nomoreparties.co${data.image}`,
       movieId: data.movieId,
       nameRU: data.nameRU,
       nameEN: data.nameEN,

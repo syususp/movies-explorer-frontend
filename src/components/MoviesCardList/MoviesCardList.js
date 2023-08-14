@@ -27,6 +27,7 @@ function MoviesCardList({
 
     if (storedMovies) {
       setMovies(storedMovies);
+      console.log(storedMovies);
       setIsLoading(false);
     } else {
       getMovies()
@@ -120,7 +121,7 @@ function MoviesCardList({
             {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => (
               <MovieCard
                 key={movie.id}
-                imageUrl={movie.image.url}
+                // imageUrl={movie.image.url}
                 movieUrl={movie.trailerLink}
                 altText={movie.nameRU}
                 movieName={movie.nameRU}
