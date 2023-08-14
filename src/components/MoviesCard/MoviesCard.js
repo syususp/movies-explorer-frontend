@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import likeActive from '../../images/likeActive.svg';
 import { Link } from 'react-router-dom';
 import './MoviesCard.css';
-import { saveMovies } from '../../utils/MainApi';
+import { saveMovies, deleteSaveMovies } from '../../utils/MainApi';
 
 function formatDuration(minutes) {
   const hours = Math.floor(minutes / 60);
@@ -30,6 +30,7 @@ function MovieCard({
   onDelete,
 }) {
   const [isSavedState, setisSavedState] = useState(false);
+  const [movieMongoId, setMovieMongoId] = useState('');
 
   const handleSaveClick = () => {
     if (!isSavedState) {
@@ -51,9 +52,17 @@ function MovieCard({
       console.log('movieData in moviesCard: ', movieData);
       saveMovies(movieData).then((response) => {
         setisSavedState(true);
+        setMovieMongoId(response._id);
       });
     } else {
-      setisSavedState(false);
+      deleteSaveMovies(movieMongoId)
+        .then(() => {
+          setisSavedState(false);
+          onDelete();
+        })
+        .catch((error) => {
+          console.error('Error deleting movie:', error);
+        });
     }
   };
 
@@ -82,9 +91,7 @@ function MovieCard({
             className="movie__deleteButton"
             type="button"
             onClick={onDelete}
-          >
-            
-          </button>
+          ></button>
         ) : isSavedState ? (
           <img
             src={likeActive}

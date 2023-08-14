@@ -121,7 +121,6 @@ function MoviesCardList({
             {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => (
               <MovieCard
                 key={movie.id}
-                // imageUrl={movie.image.url}
                 movieUrl={movie.trailerLink}
                 altText={movie.nameRU}
                 movieName={movie.nameRU}
