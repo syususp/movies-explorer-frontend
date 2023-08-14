@@ -52,6 +52,7 @@ function SavedMovies({ isLoggedIn }) {
             console.log('movieeeee', movie);
             return (
               <MovieCard
+                fromSavedMovie={true}
                 key={movie._id}
                 image={movie.image}
                 thumbnailUrl={movie.thumbnail}

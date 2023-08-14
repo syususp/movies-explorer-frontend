@@ -11,6 +11,7 @@ function formatDuration(minutes) {
 }
 
 function MovieCard({
+  fromSavedMovie,
   movieUrl,
   altText,
   movieName,
@@ -28,10 +29,10 @@ function MovieCard({
   nameEN,
   onDelete,
 }) {
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSavedState, setisSavedState] = useState(false);
 
   const handleSaveClick = () => {
-    if (!isSaved) {
+    if (!isSavedState) {
       const movieData = {
         country,
         director,
@@ -49,10 +50,10 @@ function MovieCard({
 
       console.log('movieData in moviesCard: ', movieData);
       saveMovies(movieData).then((response) => {
-        setIsSaved(true);
+        setisSavedState(true);
       });
     } else {
-      setIsSaved(false);
+      setisSavedState(false);
     }
   };
 
@@ -76,7 +77,15 @@ function MovieCard({
         </Link>
         <h3 className="movie__name">{nameRU}</h3>
         <p className="movie__duration">{formatDuration(movieDuration)}</p>
-        {isSaved ? (
+        {fromSavedMovie ? (
+          <button
+            className="movie__deleteButton"
+            type="button"
+            onClick={onDelete}
+          >
+            
+          </button>
+        ) : isSavedState ? (
           <img
             src={likeActive}
             alt="Saved"
