@@ -7,7 +7,8 @@ import { useFormWithValidation } from '../../utils/validationHooks';
 
 function Profile({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
   const [message, setMessage] = useState({ text: '', isError: false });
   const [initialName, setInitialName] = useState('');

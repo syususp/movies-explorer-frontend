@@ -9,7 +9,6 @@ import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
 function Main({ isLoggedIn }) {
-
   return (
     <div className="main__container">
       <Header isLoggedIn={isLoggedIn} />

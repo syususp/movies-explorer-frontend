@@ -47,10 +47,7 @@ function Register(props) {
             <img src={logo} alt="Логотип проекта" className="signup__logo" />
           </Link>
           <h2 className="signup__title">Добро пожаловать!</h2>
-          <form
-            className={`signup__form`}
-            onSubmit={handleSubmit}
-          >
+          <form className={`signup__form`} onSubmit={handleSubmit}>
             <label htmlFor="signupName" className="signup__label">
               Имя
               <input
@@ -65,7 +62,9 @@ function Register(props) {
                 value={values.name || ''}
                 onChange={handleChange}
               />
-              {errors.name && <span className="signup__error">{errors.name}</span>}
+              {errors.name && (
+                <span className="signup__error">{errors.name}</span>
+              )}
             </label>
             <label htmlFor="signupEmail" className="signup__label">
               E-mail
@@ -81,7 +80,9 @@ function Register(props) {
                 value={values.email || ''}
                 onChange={handleChange}
               />
-              {errors.email && <span className="signup__error">{errors.email}</span>}
+              {errors.email && (
+                <span className="signup__error">{errors.email}</span>
+              )}
             </label>
             <label htmlFor="signupPassword" className="signup__label">
               Пароль
@@ -97,7 +98,9 @@ function Register(props) {
                 value={values.password || ''}
                 onChange={handleChange}
               />
-              {errors.password && <span className="signup__error">{errors.password}</span>}
+              {errors.password && (
+                <span className="signup__error">{errors.password}</span>
+              )}
             </label>
             <button
               type="submit"

@@ -3,7 +3,7 @@ import './Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../images/icon.svg';
 import menuIcon from '../../images/menu-icon.svg';
-import closeButton from '../../images/closeButton.svg'
+import closeButton from '../../images/closeButton.svg';
 
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -29,7 +29,10 @@ function Header({ isLoggedIn }) {
           <>
             {isMenuOpen ? (
               <div className="header__menu">
-                <button className="header__menu-close-button" onClick={toggleMenu}>
+                <button
+                  className="header__menu-close-button"
+                  onClick={toggleMenu}
+                >
                   <img
                     src={closeButton}
                     alt="Закрыть меню"

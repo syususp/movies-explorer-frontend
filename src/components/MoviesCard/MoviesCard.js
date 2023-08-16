@@ -28,7 +28,7 @@ function MovieCard({
   nameRU,
   nameEN,
   onDelete,
-  isSaved
+  isSaved,
 }) {
   const [isSavedState, setisSavedState] = useState(isSaved);
   const [movieMongoId, setMovieMongoId] = useState('');

@@ -6,11 +6,16 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 
 function Movies({ isLoggedIn }) {
-  
   const storedQueryMovies = localStorage.getItem('storedQuerymovies') || '';
-  const storedCheckboxStateMovies = JSON.parse(localStorage.getItem('storedCheckboxStatemovies'));
-  const [query, setQuery] = useState(storedQueryMovies !== null ? storedQueryMovies : '');
-  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(storedCheckboxStateMovies !== null ? storedCheckboxStateMovies : false);
+  const storedCheckboxStateMovies = JSON.parse(
+    localStorage.getItem('storedCheckboxStatemovies'),
+  );
+  const [query, setQuery] = useState(
+    storedQueryMovies !== null ? storedQueryMovies : '',
+  );
+  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(
+    storedCheckboxStateMovies !== null ? storedCheckboxStateMovies : false,
+  );
 
   const handleQueryChange = useCallback((newQuery) => {
     setQuery(newQuery);

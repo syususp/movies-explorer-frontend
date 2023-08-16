@@ -15,8 +15,11 @@ function SavedMovies({ isLoggedIn }) {
 
   const [savedMovies, setSavedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState(storedQuerySavedMovies || '');
-  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(storedCheckboxStateSavedMovies !== null ? storedCheckboxStateSavedMovies : false);
-
+  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(
+    storedCheckboxStateSavedMovies !== null
+      ? storedCheckboxStateSavedMovies
+      : false,
+  );
 
   useEffect(() => {
     getSaveMovies()
@@ -47,7 +50,6 @@ function SavedMovies({ isLoggedIn }) {
       movie.nameRU.toLowerCase().includes((searchQuery || '').toLowerCase()),
     )
     .filter((movie) => !isShortMoviesChecked || movie.duration <= 40);
-
 
   return (
     <>
