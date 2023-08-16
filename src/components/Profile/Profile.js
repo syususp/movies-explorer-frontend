@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getProfile, updateProfile } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
 
-function Profile({ isLoggedIn }) {
+function Profile({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
@@ -39,6 +39,7 @@ function Profile({ isLoggedIn }) {
 
   const handleSignout = () => {
     localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
     navigate('/signin');
   };
 

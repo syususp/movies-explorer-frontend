@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -14,6 +14,8 @@ import { getProfile } from '../../utils/MainApi';
 function App() {
   const [currentUser, setCurrentUser] = React.useState([]);
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
@@ -37,15 +39,39 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path="/signin" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                navigate={navigate}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register
+                navigate={navigate}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
           <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           <Route
             path="/profile"
             element={
               <ProtectedRoute
                 loggedIn={isLoggedIn}
-                element={<Profile isLoggedIn={isLoggedIn} name={currentUser.name} />}
+                element={
+                  <Profile
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                    name={currentUser.name}
+                  />
+                }
               />
             }
           />

@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import { signin } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
 
-function Login() {
-  const navigate = useNavigate();
+function Login(props) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   const [message, setMessage] = useState({ text: '', isError: false });
-
-  const handleSignup = () => {
-    navigate('/signup');
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,38 +16,42 @@ function Login() {
     const { email, password } = values;
 
     signin({ email, password })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        navigate('/movies');
-      } else if (
-        data.validation &&
-        data.validation.body.message.includes('must be a valid email')
-      ) {
-        setMessage({
-          text: 'Проверьте введенную электронную почту',
-          isError: true,
-        });
-      } else {
-        console.log(data);
-        setMessage({ text: data.message, isError: true });
-      }
-    })
-    .catch((err) => {
-      if (err.response && err.response.status === 401) {
-        setMessage({
-          text: 'Неверная почта или пароль',
-          isError: true,
-        });
-      } else {
-        console.log(err);
-        setMessage({
-          text: 'Что-то пошло не так. Попробуйте позже',
-          isError: true,
-        });
-      }
-    });
-  }
+      .then((data) => {
+        if (data.token) {
+          console.log(data);
+          localStorage.setItem('jwt', data.token);
+          props.setIsLoggedIn(true);
+          props.navigate('/movies');
+        } else if (
+          data.validation &&
+          data.validation.body.message.includes('must be a valid email')
+        ) {
+          setMessage({
+            text: 'Проверьте введенную электронную почту',
+            isError: true,
+          });
+        } else {
+          setMessage({ text: data.message, isError: true });
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setMessage({
+            text: 'Неверная почта или пароль',
+            isError: true,
+          });
+        } else {
+          setMessage({
+            text: 'Что-то пошло не так. Попробуйте позже',
+            isError: true,
+          });
+        }
+      });
+  };
+
+  const handleSignup = () => {
+    props.navigate('/signup');
+  };
 
   return (
     <>

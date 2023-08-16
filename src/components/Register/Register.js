@@ -1,16 +1,15 @@
 import React from 'react';
 import './Register.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import { signin, signup } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
 
-function Register() {
-  const navigate = useNavigate();
+function Register(props) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSignin = () => {
-    navigate('/signin');
+    props.navigate('/signin');
   };
 
   const handleSubmit = (event) => {
@@ -28,7 +27,8 @@ function Register() {
         signin({ email, password }).then((data) => {
           if (data.token) {
             localStorage.setItem('jwt', data.token);
-            navigate('/movies');
+            props.setIsLoggedIn(true);
+            props.navigate('/movies');
           } else {
             console.error(data.message);
           }
