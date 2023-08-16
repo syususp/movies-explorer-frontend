@@ -19,3 +19,7 @@ Frontend https://syususp.nomoredomains.xyz
 Backend https://api.syususp.nomoredomains.xyz
 
 Ссылка на макет https://www.figma.com/proto/qHouExIjkPB9xVDo2k6eGT/Diploma-(Copy)?page-id=891%3A3857&type=design&node-id=932-2618&viewport=-237%2C211%2C0.79&t=jQitVJjmV66VoAFj-1&scaling=min-zoom&mode=design
+
+## Ссылка на пул-реквест
+
+https://github.com/syususp/movies-explorer-frontend/pull/2
