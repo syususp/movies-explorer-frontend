@@ -27,53 +27,22 @@ function MoviesCardList({
     setError(null);
 
     Promise.all([getMovies(), getSaveMovies()])
-        .then(([moviesData, savedMoviesData]) => {
-          setMovies(moviesData);
-          setSavedMovies(savedMoviesData);
-          localStorage.setItem('storedMovies', JSON.stringify(moviesData));
-          localStorage.setItem('storedSavedMovies', JSON.stringify(savedMoviesData));
-        })
-        .catch((error) => {
-          setError(error);
-        })
-        .finally(() => {
-          setIsLoading(true);
-        });
+      .then(([moviesData, savedMoviesData]) => {
+        setMovies(moviesData);
+        setSavedMovies(savedMoviesData);
+        localStorage.setItem('storedMovies', JSON.stringify(moviesData));
+        localStorage.setItem(
+          'storedSavedMovies',
+          JSON.stringify(savedMoviesData),
+        );
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
-
-
-  /*useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-
-    const storedMovies = JSON.parse(localStorage.getItem('storedMovies'));
-    const storedSavedMovies = JSON.parse(
-      localStorage.getItem('storedSavedMovies'),
-    );
-
-    if (storedMovies && storedSavedMovies) {
-      setMovies(storedMovies);
-      setSavedMovies(storedSavedMovies);
-      setIsLoading(false);
-    } else {
-      Promise.all([getMovies(), getSaveMovies()])
-        .then(([moviesData, savedMoviesData]) => {
-          setMovies(moviesData);
-          setSavedMovies(savedMoviesData);
-          localStorage.setItem('storedMovies', JSON.stringify(moviesData));
-          localStorage.setItem(
-            'storedSavedMovies',
-            JSON.stringify(savedMoviesData),
-          );
-        })
-        .catch((error) => {
-          setError(error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, []);*/
 
   useEffect(() => {
     const handleResize = () => {

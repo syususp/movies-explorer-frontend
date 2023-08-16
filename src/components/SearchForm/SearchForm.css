@@ -48,8 +48,8 @@
   border: transparent;
   width: 95%;
   padding-left: 22px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   overflow: hidden;
   outline: 0;
   cursor: pointer;
@@ -175,7 +175,7 @@
   .searchform__input {
     width: 212px;
     padding-left: 13px;
-    padding-top: 13px;
+    padding-top: 12px;
     color: #8b8b8b;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 14px;
