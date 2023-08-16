@@ -50,7 +50,6 @@ function MovieCard({
         nameEN,
       };
 
-      console.log('movieData in moviesCard: ', movieData);
       saveMovies(movieData).then((response) => {
         setisSavedState(true);
         setMovieMongoId(response._id);

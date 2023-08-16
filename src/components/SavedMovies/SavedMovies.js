@@ -21,7 +21,6 @@ function SavedMovies({ isLoggedIn }) {
   useEffect(() => {
     getSaveMovies()
       .then((data) => {
-        console.log('API response:', data);
         setSavedMovies(data);
       })
       .catch((error) => {
@@ -49,7 +48,6 @@ function SavedMovies({ isLoggedIn }) {
     )
     .filter((movie) => !isShortMoviesChecked || movie.duration <= 40);
 
-  console.log('filteredMovies: ', filteredMovies);
 
   return (
     <>
@@ -65,7 +63,6 @@ function SavedMovies({ isLoggedIn }) {
 
         <section className="savedMovieCardList">
           {filteredMovies.map((movie) => {
-            console.log('movieeeee', movie);
             return (
               <MovieCard
                 fromSavedMovie={true}

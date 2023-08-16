@@ -19,7 +19,7 @@ function Register() {
     const { name, email, password } = values;
 
     if (!isValid) {
-      console.log('Form is not valid');
+      console.log('Форма невалидна');
       return;
     }
 
@@ -35,7 +35,7 @@ function Register() {
         });
       })
       .catch((error) => {
-        console.log('Error in handleSubmit method: ', error);
+        console.log('Ошибка при отправке формы: ', error);
       });
   };
 

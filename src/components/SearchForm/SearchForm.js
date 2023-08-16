@@ -45,7 +45,6 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
 
           <button type="submit" className="searchform__button"></button>
         </div>
-        {console.log('Checkbox state:', isChecked)}
         <FilterCheckbox isChecked={isChecked} onChange={handleCheckboxChange} />
       </form>
     </section>

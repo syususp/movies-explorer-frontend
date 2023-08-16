@@ -40,6 +40,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  position: relative;
 }
 
 .auth__label {
@@ -153,6 +154,29 @@
   border: none;
   margin: 0 0 0 6px;
   padding: 0;
+}
+
+.auth__message {
+  color: #fff;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  top: 150px;
+  transform: translateX(-50%);
+  width: 280px;
+}
+
+.auth__message.error {
+  color: red;
+}
+
+.auth__message.success {
+  color: green;
 }
 
 @media screen and (max-width: 768px) {
