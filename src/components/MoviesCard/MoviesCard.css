@@ -76,7 +76,6 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  background-color: transparent;
   cursor: pointer;
   display: none;
   transition: filter 0.3s ease;
@@ -118,7 +117,7 @@
   height: 21px;
   position: absolute;
   top: 14px;
-  right: 34px;
+  right: 18px;
   border-style: none;
   background-color: transparent;
   cursor: pointer;
@@ -140,7 +139,16 @@
   .movie__image {
     width: 339px;
     height: 190px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+  }
+
+  .movie__deleteButton,
+  .movie__likeButton {
+    right: 38px;
+  }
+
+  .movie__saveButton {
+    right: 32px;
   }
 }
 
@@ -180,6 +188,12 @@
     margin: 5px 0 0 0;
     display: flex;
     width: 250px;
+  }
+
+  .movie__deleteButton,
+  .movie__likeButton,
+  .movie__saveButton{
+    right: 14px;
   }
 }
 

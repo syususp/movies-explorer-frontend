@@ -12,9 +12,7 @@ function formatDuration(minutes) {
 
 function MovieCard({
   fromSavedMovie,
-  movieUrl,
   altText,
-  movieName,
   movieDuration,
   country,
   director,
@@ -30,7 +28,7 @@ function MovieCard({
   onDelete,
   isSaved,
 }) {
-  const [isSavedState, setisSavedState] = useState(isSaved);
+  const [isSavedState, setIsSavedState] = useState(isSaved);
   const [movieMongoId, setMovieMongoId] = useState('');
 
   const handleSaveClick = () => {
@@ -51,13 +49,13 @@ function MovieCard({
       };
 
       saveMovies(movieData).then((response) => {
-        setisSavedState(true);
+        setIsSavedState(true);
         setMovieMongoId(response._id);
       });
     } else {
       deleteSaveMovies(movieMongoId)
         .then(() => {
-          setisSavedState(false);
+          setIsSavedState(false);
           onDelete();
         })
         .catch((error) => {
