@@ -27,17 +27,25 @@ function SavedMovies({ isLoggedIn }) {
         setSavedMovies(data);
       })
       .catch((error) => {
-        console.error('Error fetching saved movies:', error);
+        console.error('Ошибка при загрузке сохранённых фильмов: ', error);
       });
   }, []);
 
   const handleDeleteMovie = (movieId) => {
     deleteSaveMovies(movieId)
       .then(() => {
-        setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId));
+        const updatedSavedMovies = savedMovies.filter(
+          (movie) => movie._id !== movieId,
+        );
+        setSavedMovies(updatedSavedMovies);
+
+        localStorage.setItem(
+          'storedSavedMovies',
+          JSON.stringify(updatedSavedMovies),
+        );
       })
       .catch((error) => {
-        console.error('Error deleting saved movie:', error);
+        console.error('Ошибка при удалении: ', error);
       });
   };
 

@@ -26,6 +26,26 @@ function MoviesCardList({
     setIsLoading(true);
     setError(null);
 
+    Promise.all([getMovies(), getSaveMovies()])
+        .then(([moviesData, savedMoviesData]) => {
+          setMovies(moviesData);
+          setSavedMovies(savedMoviesData);
+          localStorage.setItem('storedMovies', JSON.stringify(moviesData));
+          localStorage.setItem('storedSavedMovies', JSON.stringify(savedMoviesData));
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setIsLoading(true);
+        });
+  }, []);
+
+
+  /*useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+
     const storedMovies = JSON.parse(localStorage.getItem('storedMovies'));
     const storedSavedMovies = JSON.parse(
       localStorage.getItem('storedSavedMovies'),
@@ -53,7 +73,7 @@ function MoviesCardList({
           setIsLoading(false);
         });
     }
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     const handleResize = () => {
