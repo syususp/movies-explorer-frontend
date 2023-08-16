@@ -1,4 +1,5 @@
-export const filterMovies = (movies, query, isShortMoviesChecked) => {
+export const filterMovies = (movies, query = '', isShortMoviesChecked) => {
+  query = query || '';
   const filteredMovies = movies.filter((movie) => {
     const matchesQuery =
       movie.nameRU.toLowerCase().includes(query.toLowerCase()) ||

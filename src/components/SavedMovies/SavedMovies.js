@@ -7,8 +7,16 @@ import Header from '../Header/Header';
 import { getSaveMovies, deleteSaveMovies } from '../../utils/MainApi';
 
 function SavedMovies({ isLoggedIn }) {
+  const storedQuerySavedMovies =
+    localStorage.getItem('storedQuerysavedMovies') || '';
+  const storedCheckboxStateSavedMovies = JSON.parse(
+    localStorage.getItem('storedCheckboxStatesavedMovies'),
+  );
+
   const [savedMovies, setSavedMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(storedQuerySavedMovies || '');
+  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(storedCheckboxStateSavedMovies !== null ? storedCheckboxStateSavedMovies : false);
+
 
   useEffect(() => {
     getSaveMovies()
@@ -35,9 +43,11 @@ function SavedMovies({ isLoggedIn }) {
     setSearchQuery(query);
   };
 
-  const filteredMovies = savedMovies.filter((movie) =>
-    movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredMovies = savedMovies
+    .filter((movie) =>
+      movie.nameRU.toLowerCase().includes((searchQuery || '').toLowerCase()),
+    )
+    .filter((movie) => !isShortMoviesChecked || movie.duration <= 40);
 
   console.log('filteredMovies: ', filteredMovies);
 
@@ -45,7 +55,13 @@ function SavedMovies({ isLoggedIn }) {
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main>
-        <SearchForm onSearch={handleSearch} />
+        <SearchForm
+          onSearch={handleSearch}
+          onQueryChange={setSearchQuery}
+          onCheckboxChange={setIsShortMoviesChecked}
+          isChecked={isShortMoviesChecked}
+          page="savedMovies"
+        />
 
         <section className="savedMovieCardList">
           {filteredMovies.map((movie) => {

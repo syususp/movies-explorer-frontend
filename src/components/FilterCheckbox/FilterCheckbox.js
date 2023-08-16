@@ -5,7 +5,6 @@ function FilterCheckbox({ isChecked, onChange }) {
   const handleCheckboxChange = () => {
     const newState = !isChecked;
     onChange(newState);
-    localStorage.setItem('storedCheckboxState', JSON.stringify(newState));
   };
 
   return (

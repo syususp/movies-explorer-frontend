@@ -3,6 +3,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { getMovies } from '../../utils/ApiFilm';
+import { getSaveMovies } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/filterMovies';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -19,21 +20,31 @@ function MoviesCardList({
   const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
   const currentUser = useContext(CurrentUserContext);
 
+  const [savedMovies, setSavedMovies] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     setError(null);
 
     const storedMovies = JSON.parse(localStorage.getItem('storedMovies'));
+    const storedSavedMovies = JSON.parse(
+      localStorage.getItem('storedSavedMovies'),
+    );
 
-    if (storedMovies) {
+    if (storedMovies && storedSavedMovies) {
       setMovies(storedMovies);
-      console.log(storedMovies);
+      setSavedMovies(storedSavedMovies);
       setIsLoading(false);
     } else {
-      getMovies()
-        .then((data) => {
-          setMovies(data);
-          localStorage.setItem('storedMovies', JSON.stringify(data));
+      Promise.all([getMovies(), getSaveMovies()])
+        .then(([moviesData, savedMoviesData]) => {
+          setMovies(moviesData);
+          setSavedMovies(savedMoviesData);
+          localStorage.setItem('storedMovies', JSON.stringify(moviesData));
+          localStorage.setItem(
+            'storedSavedMovies',
+            JSON.stringify(savedMoviesData),
+          );
         })
         .catch((error) => {
           setError(error);
@@ -118,26 +129,33 @@ function MoviesCardList({
         )}
         {!isLoading && !error && (
           <React.Fragment>
-            {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movieUrl={movie.trailerLink}
-                altText={movie.nameRU}
-                movieName={movie.nameRU}
-                movieDuration={movie.duration}
-                country={movie.country}
-                director={movie.director}
-                year={movie.year}
-                description={movie.description}
-                image={movie.image.url}
-                trailerLink={movie.trailerLink}
-                thumbnail={movie.image.url}
-                owner={currentUser._id}
-                movieId={movie.id}
-                nameRU={movie.nameRU}
-                nameEN={movie.nameEN}
-              />
-            ))}
+            {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => {
+              const isSaved = savedMovies.some(
+                (savedMovie) => savedMovie.movieId === movie.id,
+              );
+
+              return (
+                <MovieCard
+                  key={movie.id}
+                  isSaved={isSaved}
+                  movieUrl={movie.trailerLink}
+                  altText={movie.nameRU}
+                  movieName={movie.nameRU}
+                  movieDuration={movie.duration}
+                  country={movie.country}
+                  director={movie.director}
+                  year={movie.year}
+                  description={movie.description}
+                  image={movie.image.url}
+                  trailerLink={movie.trailerLink}
+                  thumbnail={movie.image.url}
+                  owner={currentUser._id}
+                  movieId={movie.id}
+                  nameRU={movie.nameRU}
+                  nameEN={movie.nameEN}
+                />
+              );
+            })}
           </React.Fragment>
         )}
       </section>

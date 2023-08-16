@@ -28,8 +28,9 @@ function MovieCard({
   nameRU,
   nameEN,
   onDelete,
+  isSaved
 }) {
-  const [isSavedState, setisSavedState] = useState(false);
+  const [isSavedState, setisSavedState] = useState(isSaved);
   const [movieMongoId, setMovieMongoId] = useState('');
 
   const handleSaveClick = () => {
