@@ -230,4 +230,8 @@ input[type='password'] {
     font-weight: 400;
     line-height: normal;
   }
+
+  .signup__error {
+    width: 260px;
+  }
 }

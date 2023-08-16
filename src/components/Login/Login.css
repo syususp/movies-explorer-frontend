@@ -234,4 +234,8 @@
     font-weight: 400;
     line-height: normal;
   }
+
+  .auth__error {
+    width: 260px;
+  }
 }
