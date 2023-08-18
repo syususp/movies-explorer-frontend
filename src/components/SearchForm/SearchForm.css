@@ -19,6 +19,12 @@
   border-bottom: 2px solid #48ff00;
 }
 
+.searchform__error:not(:empty)
+  + .searchform__container
+  .searchform__wrapper:focus-within {
+  border-bottom: 2px solid red;
+}
+
 .searchform__switch {
   border: none;
   padding: 0;
@@ -123,6 +129,21 @@
   line-height: 18px;
   margin: 0;
   padding: 0;
+}
+
+.searchform__error {
+  color: red;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+  width: 280px;
 }
 
 @media screen and (max-width: 1260px) {
