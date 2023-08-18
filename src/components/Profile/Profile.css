@@ -169,6 +169,15 @@
   color: green;
 }
 
+.profile__button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.profile__button-disabled:hover {
+  opacity: 1;
+}
+
 @media screen and (max-width: 768px) {
   .profile__container {
     padding: 235px 0 70px 0;

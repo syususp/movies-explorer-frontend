@@ -12,29 +12,39 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
 
   const [message, setMessage] = useState({ text: '', isError: false });
   const [initialName, setInitialName] = useState('');
+  const [initialEmail, setInitialEmail] = useState('');
+  const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
     getProfile(localStorage.getItem('jwt')).then((data) => {
       resetForm({ name: data.name, email: data.email }, {}, true);
       setInitialName(data.name);
+      setInitialEmail(data.email);
     });
   }, [resetForm]);
+
+  useEffect(() => {
+    const dataChanged =
+      initialName !== values.name || initialEmail !== values.email;
+    setHasChanges(dataChanged);
+  }, [values, initialName, initialEmail]);
 
   const handleUpdateProfile = () => {
     updateProfile(values)
       .then((response) => {
         if (response.name) {
-          setMessage({ text: 'Profile updated successfully', isError: false });
+          setMessage({ text: 'Профиль успешно обновлён', isError: false });
           setTimeout(() => {
             setMessage({ text: '', isError: false });
           }, 1000);
           setInitialName(response.name);
+          setInitialEmail(response.email);
         } else {
-          setMessage({ text: 'Error updating profile', isError: true });
+          setMessage({ text: 'Ошибка при обновлении профиля', isError: true });
         }
       })
       .catch(() => {
-        setMessage({ text: 'Error updating profile', isError: true });
+        setMessage({ text: 'Ошибка при обновлении профиля', isError: true });
       });
   };
 
@@ -63,7 +73,6 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
                   onChange={handleChange}
                   required
                 />
-                {/* <span className="profile__error">{errors.name}</span> */}
               </div>
               <div className="profile__wrapper">
                 <label className="profile__email">E-mail</label>
@@ -76,7 +85,6 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
                   onChange={handleChange}
                   required
                 />
-                {/* <span className="profile__error">{errors.email}</span> */}
               </div>
               <span
                 className={`profile__message ${
@@ -88,10 +96,12 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
             </div>
             <div className="profile__navigate">
               <button
-                className="profile__button profile__button-edit"
+                className={`profile__button profile__button-edit ${
+                  !hasChanges ? 'profile__button-disabled' : ''
+                }`}
                 type="button"
                 onClick={handleUpdateProfile}
-                disabled={!isValid}
+                disabled={!isValid || !hasChanges}
               >
                 Редактировать
               </button>
