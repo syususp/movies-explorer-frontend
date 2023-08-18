@@ -1,5 +1,10 @@
 import React, { useCallback } from 'react';
 
+function validateEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  return emailPattern.test(String(email).toLowerCase());
+}
+
 //хук управления формой
 export function useForm() {
   const [values, setValues] = React.useState({});
@@ -25,7 +30,13 @@ export function useFormWithValidation() {
     const name = target.name;
     const value = target.value;
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
+
+    if (name === 'email' && !validateEmail(value)) {
+      setErrors({ ...errors, [name]: 'Неверный формат электронной почты' });
+    } else {
+      setErrors({ ...errors, [name]: target.validationMessage });
+    }
+
     setIsValid(target.closest('form').checkValidity());
   };
 
