@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import { signin } from '../../utils/MainApi';
+import { signin, getProfile } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
 
 function Login(props) {
@@ -18,10 +18,12 @@ function Login(props) {
     signin({ email, password })
       .then((data) => {
         if (data.token) {
-          console.log(data);
           localStorage.setItem('jwt', data.token);
           props.setIsLoggedIn(true);
           props.navigate('/movies');
+          getProfile(data.token).then((userData) => {
+            props.setCurrentUser(userData);
+          });
         } else if (
           data.validation &&
           data.validation.body.message.includes('must be a valid email')

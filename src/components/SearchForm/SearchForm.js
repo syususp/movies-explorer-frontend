@@ -9,28 +9,7 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
 
   useEffect(() => {
     onQueryChange(storedQuery);
-  }, [storedQuery, onQueryChange]);
-
-  // const handleInputChange = (e) => {
-  //   setError('');
-  //   setQuery(e.target.value);
-  //   onQueryChange(e.target.value);
-  //   localStorage.setItem(`storedQuery${page}`, e.target.value);
-  // };
-
-  // const handleFormSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (!query.trim()) {
-  //     setError('Нужно ввести ключевое слово');
-  //     return;
-  //   }
-
-  //   setError('');
-
-  //   localStorage.setItem(`storedQuery${page}`, query);
-  //   onQueryChange(query);
-  // };
+  }, [storedQuery]);
 
   const handleInputChange = (e) => {
     setError('');

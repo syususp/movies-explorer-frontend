@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import likeActive from '../../images/likeActive.svg';
 import { Link } from 'react-router-dom';
 import './MoviesCard.css';
@@ -27,6 +27,7 @@ function MovieCard({
   nameEN,
   onDelete,
   isSaved,
+  savedMovies,
 }) {
   const [isSavedState, setIsSavedState] = useState(isSaved);
   const [movieMongoId, setMovieMongoId] = useState('');
@@ -51,16 +52,17 @@ function MovieCard({
       saveMovies(movieData)
         .then((response) => {
           setIsSavedState(true);
+          console.log('response._id on saving movie: ', response._id);
           setMovieMongoId(response._id);
         })
         .catch((error) => {
           console.error('Ошибка при сохранении: ', error);
         });
     } else {
+      console.log(movieMongoId, 'movieMongoID');
       deleteSaveMovies(movieMongoId)
         .then(() => {
           setIsSavedState(false);
-          onDelete();
         })
         .catch((error) => {
           console.error('Ошибка при удалении: ', error);
@@ -75,6 +77,17 @@ function MovieCard({
     }
     return `${prefix}${image}`;
   }
+
+  useEffect(() => {
+    if (isSaved) {
+      const matchingSavedMovie = savedMovies.find(
+        (savedMovie) => savedMovie.movieId === movieId,
+      );
+      if (matchingSavedMovie) {
+        setMovieMongoId(matchingSavedMovie._id);
+      }
+    }
+  }, [isSaved, movieId, savedMovies]);
 
   return (
     <ul className="movie">

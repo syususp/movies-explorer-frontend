@@ -40,7 +40,7 @@ export const signin = (user) => {
 
 export const getProfile = (token) => {
   if (!token) {
-    throw new Error('Token is missing or undefined');
+    throw new Error('Токен пропущен или неопределён');
   }
   return fetch(`${options.baseUrl}/users/me`, {
     method: 'GET',
@@ -98,7 +98,6 @@ export const saveMovies = (data) => {
   })
     .then(checkResponse)
     .catch((error) => {
-      console.error('saveMovies error', error);
       throw error;
     });
 };
@@ -121,7 +120,8 @@ export const getSaveMovies = () => {
       }
     })
     .catch((error) => {
-      console.error('getSaveMovies error', error);
+      console.error('getSaveMovies error (api)', error);
+      throw error;
     });
 };
 

@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { getMovies } from '../../utils/ApiFilm';
-import { getSaveMovies } from '../../utils/MainApi';
+import { getSaveMovies, deleteSaveMovies } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/filterMovies';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -21,28 +21,6 @@ function MoviesCardList({
   const currentUser = useContext(CurrentUserContext);
 
   const [savedMovies, setSavedMovies] = useState([]);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   setError(null);
-
-  //   Promise.all([getMovies(), getSaveMovies()])
-  //     .then(([moviesData, savedMoviesData]) => {
-  //       setMovies(moviesData);
-  //       setSavedMovies(savedMoviesData);
-  //       localStorage.setItem('storedMovies', JSON.stringify(moviesData));
-  //       localStorage.setItem(
-  //         'storedSavedMovies',
-  //         JSON.stringify(savedMoviesData),
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     });
-  // }, []);
   
   const fetchMovies = useCallback(() => {
     setIsLoading(true);
@@ -155,6 +133,7 @@ function MoviesCardList({
                 <MovieCard
                   key={movie.id}
                   isSaved={isSaved}
+                  savedMovies={savedMovies}
                   movieUrl={movie.trailerLink}
                   altText={movie.nameRU}
                   movieName={movie.nameRU}

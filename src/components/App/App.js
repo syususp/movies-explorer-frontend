@@ -19,6 +19,7 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
+    
     if (token) {
       getProfile(token)
         .then((userData) => {
@@ -49,6 +50,7 @@ function App() {
                   navigate={navigate}
                   isLoggedIn={!isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}
+                  setCurrentUser={setCurrentUser}
                 />
               }
             />
