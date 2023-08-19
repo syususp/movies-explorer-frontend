@@ -3,15 +3,13 @@ import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { getMovies } from '../../utils/ApiFilm';
-import { getSaveMovies, deleteSaveMovies } from '../../utils/MainApi';
+import { getSaveMovies } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/filterMovies';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function MoviesCardList({
   query,
   isShortMoviesChecked,
-  setQuery,
-  setIsShortMoviesChecked,
 }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

@@ -81,6 +81,10 @@
   border-radius: 8px;
 }
 
+.searchform__button:disabled {
+  filter: brightness(0.5);
+}
+
 .searchform__switch-tumbler {
   display: flex;
   cursor: pointer;

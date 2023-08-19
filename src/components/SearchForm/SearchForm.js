@@ -6,17 +6,18 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
   const storedQuery = localStorage.getItem(`storedQuery${page}`);
   const [query, setQuery] = useState(storedQuery || '');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     onQueryChange(storedQuery);
-  }, [storedQuery]);
+  }, [storedQuery, onQueryChange]);
 
   const handleInputChange = (e) => {
     setError('');
     setQuery(e.target.value);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (!query.trim()) {
@@ -25,8 +26,15 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
     }
 
     setError('');
-    localStorage.setItem(`storedQuery${page}`, query);
-    onQueryChange(query);
+    setIsLoading(true);
+
+    try {
+      localStorage.setItem(`storedQuery${page}`, query);
+      await onQueryChange(query);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCheckboxChange = (isChecked) => {
@@ -53,9 +61,13 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
             placeholder="Фильм"
             value={query}
             onChange={handleInputChange}
+            disabled={isLoading}
           />
-
-          <button type="submit" className="searchform__button"></button>
+          <button
+            type="submit"
+            className="searchform__button"
+            disabled={isLoading}
+          ></button>
         </div>
         <FilterCheckbox isChecked={isChecked} onChange={handleCheckboxChange} />
       </form>
