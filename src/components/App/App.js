@@ -43,11 +43,11 @@ function App() {
           path="/signin"
           element={
             <ProtectedRoute
-              loggedIn={isLoggedIn}
+              loggedIn={!isLoggedIn}
               element={
                 <Login
                   navigate={navigate}
-                  isLoggedIn={isLoggedIn}
+                  isLoggedIn={!isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}
                 />
               }
@@ -58,11 +58,11 @@ function App() {
           path="/signup"
           element={
             <ProtectedRoute
-              loggedIn={isLoggedIn}
+              loggedIn={!isLoggedIn}
               element={
                 <Register
                   navigate={navigate}
-                  isLoggedIn={isLoggedIn}
+                  isLoggedIn={!isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}
                 />
               }
