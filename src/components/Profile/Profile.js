@@ -50,8 +50,12 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
 
   const handleSignout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('storedQuerymovies');
+    localStorage.removeItem('storedSavedMovies');
+    localStorage.removeItem('storedMovies');
+
     setIsLoggedIn(false);
-    navigate('/signin');
+    navigate('/');
   };
 
   return (
