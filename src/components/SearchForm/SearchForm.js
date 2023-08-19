@@ -9,7 +9,7 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
 
   useEffect(() => {
     onQueryChange(storedQuery);
-  }, [storedQuery]);
+  }, [storedQuery, onQueryChange]);
 
   // const handleInputChange = (e) => {
   //   setError('');

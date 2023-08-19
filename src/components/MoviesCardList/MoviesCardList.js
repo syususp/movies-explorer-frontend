@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
@@ -14,7 +14,7 @@ function MoviesCardList({
   setIsShortMoviesChecked,
 }) {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(4);
   const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
@@ -22,7 +22,29 @@ function MoviesCardList({
 
   const [savedMovies, setSavedMovies] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   setError(null);
+
+  //   Promise.all([getMovies(), getSaveMovies()])
+  //     .then(([moviesData, savedMoviesData]) => {
+  //       setMovies(moviesData);
+  //       setSavedMovies(savedMoviesData);
+  //       localStorage.setItem('storedMovies', JSON.stringify(moviesData));
+  //       localStorage.setItem(
+  //         'storedSavedMovies',
+  //         JSON.stringify(savedMoviesData),
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+  
+  const fetchMovies = useCallback(() => {
     setIsLoading(true);
     setError(null);
 
@@ -43,6 +65,12 @@ function MoviesCardList({
         setIsLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (query || isShortMoviesChecked) {
+      fetchMovies();
+    }
+  }, [query, isShortMoviesChecked, fetchMovies]);
 
   useEffect(() => {
     const handleResize = () => {
