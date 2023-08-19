@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Header.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import icon from '../../images/icon.svg';
 import menuIcon from '../../images/menu-icon.svg';
 import closeButton from '../../images/closeButton.svg';
@@ -40,47 +40,63 @@ function Header({ isLoggedIn }) {
                   />
                 </button>
                 <div className="header__menu-wrapper">
-                  <Link to="/" className="header__menu-link">
+                  <NavLink to="/" className="header__menu-link">
                     Главная
-                  </Link>
-                  <Link to="/movies" className="header__menu-link">
+                  </NavLink>
+                  <NavLink to="/movies" className="header__menu-link">
                     Фильмы
-                  </Link>
-                  <Link to="/saved-movies" className="header__menu-link">
+                  </NavLink>
+                  <NavLink to="/saved-movies" className="header__menu-link">
                     Сохранённые фильмы
-                  </Link>
+                  </NavLink>
                 </div>
                 <div className="header__menu-account-wrapper">
-                  <Link to="/profile" className="header__menu-account-link">
+                  <NavLink to="/profile" className="header__menu-account-link">
                     Аккаунт
-                  </Link>
-                  <Link to="/profile" className="header__account-icon-wrapper">
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className="header__account-icon-wrapper"
+                  >
                     <img
                       className="header__account-icon"
                       src={icon}
                       alt="Иконка аккаунта"
                     />
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             ) : (
               <div className="header__links-wrapper">
-                <Link to="/movies" className="header__link">
+                <NavLink
+                  exact to="/movies"
+                  className="header__link"
+                  activeClassName="active-link"
+                >
                   Фильмы
-                </Link>
-                <Link to="/saved-movies" className="header__link">
+                </NavLink>
+                <NavLink
+                  exact to="/saved-movies"
+                  className="header__link"
+                  activeClassName="active-link"
+                >
                   Сохраненные фильмы
-                </Link>
-                <Link to="/profile" className="header__link">
+                </NavLink>
+                <NavLink
+                  exact to="/profile"
+                  className="header__link"
+                  activeClassName="active-link"
+                >
                   Аккаунт
-                </Link>
-                <Link to="/profile" className="header__account-icon-wrapper">
+                </NavLink>
+
+                <NavLink exact to="/profile" className="header__account-icon-wrapper">
                   <img
                     className="header__account-icon"
                     src={icon}
                     alt="Иконка аккаунта"
                   />
-                </Link>
+                </NavLink>
               </div>
             )}
             <button className="header__menu-button" onClick={toggleMenu}>
