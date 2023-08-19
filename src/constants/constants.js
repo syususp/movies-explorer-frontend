@@ -1,0 +1,10 @@
+export const SHORT_MOVIE_DURATION = 40;
+export const VISIBLE_ROWS_LARGE = 12;
+export const VISIBLE_ROWS_MEDIUM = 8;
+export const VISIBLE_ROWS_SMALL = 5;
+export const MAX_SCREEN_SMALL = 480;
+export const MAX_SCREEN_MEDIUM = 768;
+export const MAX_SCREEN_LARGE = 1240;
+export const CARDS_INCREMENT_LARGE = 3;
+export const CARDS_INCREMENT_MEDIUM = 2;
+export const CARDS_INCREMENT_SMALL = 1;

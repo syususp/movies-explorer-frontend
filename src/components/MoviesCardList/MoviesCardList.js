@@ -6,11 +6,19 @@ import { getMovies } from '../../utils/ApiFilm';
 import { getSaveMovies } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/filterMovies';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {
+  VISIBLE_ROWS_LARGE,
+  VISIBLE_ROWS_MEDIUM,
+  VISIBLE_ROWS_SMALL,
+  MAX_SCREEN_SMALL,
+  MAX_SCREEN_MEDIUM,
+  MAX_SCREEN_LARGE,
+  CARDS_INCREMENT_LARGE,
+  CARDS_INCREMENT_MEDIUM,
+  CARDS_INCREMENT_SMALL,
+} from '../../constants/constants';
 
-function MoviesCardList({
-  query,
-  isShortMoviesChecked,
-}) {
+function MoviesCardList({ query, isShortMoviesChecked }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -60,12 +68,12 @@ function MoviesCardList({
     const handleResize = () => {
       const windowWidth = window.innerWidth;
 
-      if (windowWidth > 1240) {
-        setAdjustedVisibleRows(12);
-      } else if (windowWidth > 480) {
-        setAdjustedVisibleRows(8);
+      if (windowWidth > MAX_SCREEN_LARGE) {
+        setAdjustedVisibleRows(VISIBLE_ROWS_LARGE);
+      } else if (windowWidth > MAX_SCREEN_MEDIUM) {
+        setAdjustedVisibleRows(VISIBLE_ROWS_MEDIUM);
       } else {
-        setAdjustedVisibleRows(5);
+        setAdjustedVisibleRows(VISIBLE_ROWS_SMALL);
       }
     };
 
@@ -99,12 +107,12 @@ function MoviesCardList({
   const showMoreMovies = () => {
     let increment;
 
-    if (window.innerWidth <= 480) {
-      increment = 1;
-    } else if (window.innerWidth <= 1240) {
-      increment = 2;
+    if (window.innerWidth <= MAX_SCREEN_SMALL) {
+      increment = CARDS_INCREMENT_SMALL;
+    } else if (window.innerWidth <= MAX_SCREEN_LARGE) {
+      increment = CARDS_INCREMENT_MEDIUM;
     } else {
-      increment = 3;
+      increment = CARDS_INCREMENT_LARGE;
     }
 
     if (adjustedVisibleRows + increment <= visibleMovies.length) {
