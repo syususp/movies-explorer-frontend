@@ -59,7 +59,7 @@ function MovieCard({
           onDelete();
         })
         .catch((error) => {
-          console.error('Error deleting movie:', error);
+          console.error('Ошибка при обработке handleSaveClick: ', error);
         });
     }
   };
