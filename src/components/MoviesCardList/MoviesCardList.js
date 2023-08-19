@@ -19,10 +19,18 @@ function MoviesCardList({
   const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(4);
   const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
   const currentUser = useContext(CurrentUserContext);
-
   const [savedMovies, setSavedMovies] = useState([]);
-  
+
   const fetchMovies = useCallback(() => {
+    const storedMovies = localStorage.getItem('storedMovies');
+    const storedSavedMovies = localStorage.getItem('storedSavedMovies');
+
+    if (storedMovies && storedSavedMovies) {
+      setMovies(JSON.parse(storedMovies));
+      setSavedMovies(JSON.parse(storedSavedMovies));
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 

@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, updateProfile } from '../../utils/MainApi';
+import { updateProfile } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile({ isLoggedIn, setIsLoggedIn }) {
+  const currentUser = useContext(CurrentUserContext);
   const navigate = useNavigate();
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
   const [message, setMessage] = useState({ text: '', isError: false });
   const [initialName, setInitialName] = useState('');
@@ -15,21 +18,19 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
   const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      getProfile(token).then((data) => {
-        resetForm({ name: data.name, email: data.email }, {}, true);
-        setInitialName(data.name);
-        setInitialEmail(data.email);
-      });
+    if (currentUser) {
+      resetForm({ name: currentUser.name, email: currentUser.email }, {}, true);
+      setInitialName(currentUser.name);
+      setInitialEmail(currentUser.email);
     } else {
       setIsLoggedIn(false);
       navigate('/signin');
     }
-  }, [resetForm, setIsLoggedIn, navigate]);
+  }, [currentUser, resetForm, setIsLoggedIn, navigate]);
 
   useEffect(() => {
-    const dataChanged = initialName !== values.name || initialEmail !== values.email;
+    const dataChanged =
+      initialName !== values.name || initialEmail !== values.email;
     setHasChanges(dataChanged);
   }, [values, initialName, initialEmail]);
 
@@ -95,14 +96,18 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
                 />
               </div>
               <span
-                className={`profile__message ${errors.name || errors.email ? 'error' : 'success'}`}
+                className={`profile__message ${
+                  errors.name || errors.email ? 'error' : 'success'
+                }`}
               >
                 {errors.name || errors.email || message.text}
               </span>
             </div>
             <div className="profile__navigate">
               <button
-                className={`profile__button profile__button-edit ${!hasChanges ? 'profile__button-disabled' : ''}`}
+                className={`profile__button profile__button-edit ${
+                  !hasChanges ? 'profile__button-disabled' : ''
+                }`}
                 type="button"
                 onClick={handleUpdateProfile}
                 disabled={!isValid || !hasChanges}
