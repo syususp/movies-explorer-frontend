@@ -5,7 +5,9 @@ function ProtectedRoute({ element, loggedIn, ...props }) {
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!loggedIn) {
-      navigate('/signin');
+      navigate('/');
+    } else {
+      navigate('/movies');
     }
   }, [loggedIn, navigate]);
 

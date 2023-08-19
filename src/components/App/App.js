@@ -39,26 +39,36 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route
-            path="/signin"
-            element={
-              <Login
-                navigate={navigate}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <Register
-                navigate={navigate}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-              />
-            }
-          />
+        <Route
+          path="/signin"
+          element={
+            <ProtectedRoute
+              loggedIn={isLoggedIn}
+              element={
+                <Login
+                  navigate={navigate}
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <ProtectedRoute
+              loggedIn={isLoggedIn}
+              element={
+                <Register
+                  navigate={navigate}
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
+          }
+        />
           <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
           <Route
             path="/profile"
