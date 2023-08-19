@@ -48,10 +48,14 @@ function MovieCard({
         nameEN,
       };
 
-      saveMovies(movieData).then((response) => {
-        setIsSavedState(true);
-        setMovieMongoId(response._id);
-      });
+      saveMovies(movieData)
+        .then((response) => {
+          setIsSavedState(true);
+          setMovieMongoId(response._id);
+        })
+        .catch((error) => {
+          console.error('Ошибка при сохранении: ', error);
+        });
     } else {
       deleteSaveMovies(movieMongoId)
         .then(() => {
@@ -59,7 +63,7 @@ function MovieCard({
           onDelete();
         })
         .catch((error) => {
-          console.error('Ошибка при обработке handleSaveClick: ', error);
+          console.error('Ошибка при удалении: ', error);
         });
     }
   };
