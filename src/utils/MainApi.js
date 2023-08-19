@@ -5,12 +5,24 @@ const options = {
   },
 };
 
+function checkResponse(response) {
+  if (response.ok) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка: ${response.status}`);
+}
+
 export const signup = (user) => {
   return fetch(`${options.baseUrl}/signup`, {
     method: 'POST',
     headers: options.headers,
     body: JSON.stringify(user),
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('signup error', error);
+      throw error;
+    });
 };
 
 export const signin = (user) => {
@@ -18,7 +30,12 @@ export const signin = (user) => {
     method: 'POST',
     headers: options.headers,
     body: JSON.stringify(user),
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('signin error', error);
+      throw error;
+    });
 };
 
 export const getProfile = (token) => {
@@ -31,7 +48,12 @@ export const getProfile = (token) => {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('getProfile error', error);
+      throw error;
+    });
 };
 
 export const updateProfile = (user) => {
@@ -43,7 +65,12 @@ export const updateProfile = (user) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(user),
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('updateProfile error', error);
+      throw error;
+    });
 };
 
 export const saveMovies = (data) => {
@@ -68,7 +95,12 @@ export const saveMovies = (data) => {
       nameEN: data.nameEN,
       owner: data.owner,
     }),
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('saveMovies error', error);
+      throw error;
+    });
 };
 
 export const getSaveMovies = () => {
@@ -101,5 +133,10 @@ export const deleteSaveMovies = (id) => {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  }).then((response) => response.json());
+  })
+    .then(checkResponse)
+    .catch((error) => {
+      console.error('deleteSaveMovies error', error);
+      throw error;
+    });
 };
