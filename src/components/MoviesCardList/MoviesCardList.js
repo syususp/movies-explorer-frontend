@@ -22,10 +22,30 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(4);
+
   const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const [savedMovies, setSavedMovies] = useState([]);
+
+  const getInitialVisibleRows = () => {
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth > MAX_SCREEN_LARGE) {
+      return VISIBLE_ROWS_LARGE;
+    } else if (windowWidth > MAX_SCREEN_MEDIUM) {
+      return VISIBLE_ROWS_MEDIUM;
+    } else {
+      return VISIBLE_ROWS_SMALL;
+    }
+  };
+  
+  const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(
+    getInitialVisibleRows(),
+  );
+
+  useEffect(() => {
+    setAdjustedVisibleRows(getInitialVisibleRows());
+  }, [query]);
 
   const fetchMovies = useCallback(() => {
     const storedMovies = localStorage.getItem('storedMovies');
@@ -66,15 +86,7 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
 
   useEffect(() => {
     const handleResize = () => {
-      const windowWidth = window.innerWidth;
-
-      if (windowWidth > MAX_SCREEN_LARGE) {
-        setAdjustedVisibleRows(VISIBLE_ROWS_LARGE);
-      } else if (windowWidth > MAX_SCREEN_MEDIUM) {
-        setAdjustedVisibleRows(VISIBLE_ROWS_MEDIUM);
-      } else {
-        setAdjustedVisibleRows(VISIBLE_ROWS_SMALL);
-      }
+      setAdjustedVisibleRows(getInitialVisibleRows());
     };
 
     let resizeTimeout;
