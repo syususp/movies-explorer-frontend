@@ -87,10 +87,6 @@
   color: #ee3465;
 }
 
-.auth__input:invalid:not(:placeholder-shown) {
-  border-bottom-color: #ee3465;
-}
-
 .auth__submit {
   border-style: none;
   text-align: center;
