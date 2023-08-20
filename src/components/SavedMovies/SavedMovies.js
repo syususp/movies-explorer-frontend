@@ -5,6 +5,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MovieCard from '../../components/MoviesCard/MoviesCard';
 import Header from '../Header/Header';
 import { getSaveMovies, deleteSaveMovies } from '../../utils/MainApi';
+import { SHORT_MOVIE_DURATION } from '../../constants/constants';
 
 function SavedMovies({ isLoggedIn }) {
   const storedQuerySavedMovies =
@@ -57,7 +58,7 @@ function SavedMovies({ isLoggedIn }) {
     .filter((movie) =>
       movie.nameRU.toLowerCase().includes((searchQuery || '').toLowerCase()),
     )
-    .filter((movie) => !isShortMoviesChecked || movie.duration <= 40);
+    .filter((movie) => !isShortMoviesChecked || movie.duration <= SHORT_MOVIE_DURATION);
 
   return (
     <>
