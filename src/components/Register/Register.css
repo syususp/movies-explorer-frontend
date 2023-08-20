@@ -82,8 +82,13 @@ input[type='password'] {
   margin-top: 5.5px;
 }
 
-.signup__input:invalid {
+.signup__input:invalid,
+.signup__input.error {
   color: #ee3465;
+}
+
+.signup__input:invalid:not(:placeholder-shown) {
+  border-bottom-color: #ee3465;
 }
 
 .signup__input:focus {
