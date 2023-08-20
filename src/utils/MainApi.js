@@ -17,12 +17,7 @@ export const signup = (user) => {
     method: 'POST',
     headers: options.headers,
     body: JSON.stringify(user),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error('signup error', error);
-      throw error;
-    });
+  }).then(checkResponse);
 };
 
 export const signin = (user) => {
@@ -30,12 +25,7 @@ export const signin = (user) => {
     method: 'POST',
     headers: options.headers,
     body: JSON.stringify(user),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error('signin error', error);
-      throw error;
-    });
+  }).then(checkResponse);
 };
 
 export const getProfile = (token) => {
@@ -48,12 +38,7 @@ export const getProfile = (token) => {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error('getProfile error', error);
-      throw error;
-    });
+  }).then(checkResponse);
 };
 
 export const updateProfile = (user) => {
@@ -65,12 +50,7 @@ export const updateProfile = (user) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(user),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error('updateProfile error', error);
-      throw error;
-    });
+  }).then(checkResponse);
 };
 
 export const saveMovies = (data) => {
@@ -95,11 +75,7 @@ export const saveMovies = (data) => {
       nameEN: data.nameEN,
       owner: data.owner,
     }),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      throw error;
-    });
+  }).then(checkResponse);
 };
 
 export const getSaveMovies = () => {
@@ -110,19 +86,13 @@ export const getSaveMovies = () => {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((response) => {
-      if (response.status === 401) {
-        localStorage.removeItem('jwt');
-        return [];
-      } else {
-        return response.json();
-      }
-    })
-    .catch((error) => {
-      console.error('getSaveMovies error (api)', error);
-      throw error;
-    });
+  }).then((response) => {
+    if (response.status === 401) {
+      localStorage.removeItem('jwt');
+      throw new Error('Unauthorized');
+    }
+    return checkResponse(response);
+  });
 };
 
 export const deleteSaveMovies = (id) => {
@@ -133,10 +103,5 @@ export const deleteSaveMovies = (id) => {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error('deleteSaveMovies error', error);
-      throw error;
-    });
+  }).then(checkResponse);
 };
