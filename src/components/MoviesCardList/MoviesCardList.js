@@ -29,23 +29,27 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
 
   const getInitialVisibleRows = () => {
     const windowWidth = window.innerWidth;
-
+    console.log(windowWidth, 'window width');
     if (windowWidth > MAX_SCREEN_LARGE) {
       return VISIBLE_ROWS_LARGE;
-    } else if (windowWidth > MAX_SCREEN_MEDIUM) {
+    } else if (windowWidth >= MAX_SCREEN_MEDIUM) {
       return VISIBLE_ROWS_MEDIUM;
     } else {
       return VISIBLE_ROWS_SMALL;
     }
   };
-  
+
   const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(
-    getInitialVisibleRows(),
+    VISIBLE_ROWS_SMALL,
   );
 
   useEffect(() => {
     setAdjustedVisibleRows(getInitialVisibleRows());
-  }, [query]);
+  }, [query, isShortMoviesChecked]);
+
+  useEffect(() => {
+    setAdjustedVisibleRows(getInitialVisibleRows());
+  }, []);
 
   const fetchMovies = useCallback(() => {
     const storedMovies = localStorage.getItem('storedMovies');
@@ -119,6 +123,14 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
   const showMoreMovies = () => {
     let increment;
 
+    const currentRows = getInitialVisibleRows();
+    console.log(currentRows, 'currentRows');
+    console.log(adjustedVisibleRows, 'adjustedVisibleRows');
+    if (adjustedVisibleRows < currentRows) {
+      setAdjustedVisibleRows(currentRows);
+      return;
+    }
+
     if (window.innerWidth <= MAX_SCREEN_SMALL) {
       increment = CARDS_INCREMENT_SMALL;
     } else if (window.innerWidth <= MAX_SCREEN_LARGE) {
@@ -128,7 +140,9 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
     }
 
     if (adjustedVisibleRows + increment <= visibleMovies.length) {
-      setAdjustedVisibleRows(adjustedVisibleRows + increment);
+      setAdjustedVisibleRows((prevRows) =>
+        Math.min(prevRows + increment, visibleMovies.length),
+      );
     } else {
       setAdjustedVisibleRows(visibleMovies.length);
       setAreAllMoviesShown(true);
