@@ -56,75 +56,71 @@ function Login(props) {
   };
 
   return (
-    <>
-      <div className="auth">
-        <div className="auth__container">
-          <Link to="/">
-            <img src={logo} alt="Логотип проекта" className="signup__logo" />
-          </Link>
-          <h2 className="auth__title">Рады видеть!</h2>
-          <form className="auth__form" onSubmit={handleSubmit}>
-            <label htmlFor="authEmail" className="auth__label">
-              E-mail
-              <input
-                id="authEmail"
-                name="email"
-                pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                type="email"
-                className={`auth__input ${errors.email ? 'error' : ''}`}
-                placeholder=""
-                minLength="2"
-                maxLength="40"
-                required
-                value={values.email || ''}
-                onChange={handleChange}
-              />
-              {errors.email && (
-                <span className="auth__error">{errors.email}</span>
-              )}
-            </label>
-            <label htmlFor="authPassword" className="auth__label">
-              Пароль
-              <input
-                id="authPassword"
-                name="password"
-                type="password"
-                className="auth__input"
-                placeholder=""
-                minLength="8"
-                maxLength="21"
-                required
-                value={values.password || ''}
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <span className="auth__error">{errors.password}</span>
-              )}
-            </label>
-            <span
-              className={`auth__message ${
-                message.isError ? 'error' : 'success'
-              }`}
+    <div className="auth">
+      <div className="auth__container">
+        <Link to="/">
+          <img src={logo} alt="Логотип проекта" className="signup__logo" />
+        </Link>
+        <h2 className="auth__title">Рады видеть!</h2>
+        <form className="auth__form" onSubmit={handleSubmit}>
+          <label htmlFor="authEmail" className="auth__label">
+            E-mail
+            <input
+              id="authEmail"
+              name="email"
+              pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              type="email"
+              className={`auth__input ${errors.email ? 'error' : ''}`}
+              placeholder=""
+              minLength="2"
+              maxLength="40"
+              required
+              value={values.email || ''}
+              onChange={handleChange}
+            />
+            {errors.email && (
+              <span className="auth__error">{errors.email}</span>
+            )}
+          </label>
+          <label htmlFor="authPassword" className="auth__label">
+            Пароль
+            <input
+              id="authPassword"
+              name="password"
+              type="password"
+              className="auth__input"
+              placeholder=""
+              minLength="8"
+              maxLength="21"
+              required
+              value={values.password || ''}
+              onChange={handleChange}
+            />
+            {errors.password && (
+              <span className="auth__error">{errors.password}</span>
+            )}
+          </label>
+          <span
+            className={`auth__message ${message.isError ? 'error' : 'success'}`}
+          >
+            {message.text}
+          </span>
+          <button type="submit" className="auth__submit" disabled={!isValid}>
+            Войти
+          </button>
+          <div className="signup-block">
+            <p className="signup-block__text">Ещё не зарегистрированы?</p>
+            <button
+              className="signup-block__button"
+              type="button"
+              onClick={handleSignup}
             >
-              {message.text}
-            </span>
-            <button type="submit" className="auth__submit" disabled={!isValid}>
-              Войти
+              Регистрация
             </button>
-            <div className="signup-block">
-              <p className="signup-block__text">Ещё не зарегистрированы?</p>
-              <button
-                className="signup-block__button"
-                type="button"
-                onClick={handleSignup}
-              >
-                Регистрация
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -40,90 +40,84 @@ function Register(props) {
   };
 
   return (
-    <>
-      <div className="signup">
-        <div className="signup__container">
-          <Link to="/">
-            <img src={logo} alt="Логотип проекта" className="signup__logo" />
-          </Link>
-          <h2 className="signup__title">Добро пожаловать!</h2>
-          <form className={`signup__form`} onSubmit={handleSubmit}>
-            <label htmlFor="signupName" className="signup__label">
-              Имя
-              <input
-                id="signupName"
-                name="name"
-                type="text"
-                className="signup__input"
-                placeholder=""
-                minLength="8"
-                maxLength="21"
-                required
-                value={values.name || ''}
-                onChange={handleChange}
-              />
-              {errors.name && (
-                <span className="signup__error">{errors.name}</span>
-              )}
-            </label>
-            <label htmlFor="signupEmail" className="signup__label">
-              E-mail
-              <input
-                id="signupEmail"
-                name="email"
-                pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                type="email"
-                className={`signup__input ${errors.email ? 'error' : ''}`}
-                placeholder=""
-                minLength="2"
-                maxLength="40"
-                required
-                value={values.email || ''}
-                onChange={handleChange}
-              />
-              {errors.email && (
-                <span className="signup__error">{errors.email}</span>
-              )}
-            </label>
-            <label htmlFor="signupPassword" className="signup__label">
-              Пароль
-              <input
-                id="signupPassword"
-                name="password"
-                type="password"
-                className="signup__input"
-                placeholder=""
-                minLength="8"
-                maxLength="21"
-                required
-                value={values.password || ''}
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <span className="signup__error">{errors.password}</span>
-              )}
-            </label>
+    <div className="signup">
+      <div className="signup__container">
+        <Link to="/">
+          <img src={logo} alt="Логотип проекта" className="signup__logo" />
+        </Link>
+        <h2 className="signup__title">Добро пожаловать!</h2>
+        <form className={`signup__form`} onSubmit={handleSubmit}>
+          <label htmlFor="signupName" className="signup__label">
+            Имя
+            <input
+              id="signupName"
+              name="name"
+              type="text"
+              className="signup__input"
+              placeholder=""
+              minLength="8"
+              maxLength="21"
+              required
+              value={values.name || ''}
+              onChange={handleChange}
+            />
+            {errors.name && (
+              <span className="signup__error">{errors.name}</span>
+            )}
+          </label>
+          <label htmlFor="signupEmail" className="signup__label">
+            E-mail
+            <input
+              id="signupEmail"
+              name="email"
+              pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              type="email"
+              className={`signup__input ${errors.email ? 'error' : ''}`}
+              placeholder=""
+              minLength="2"
+              maxLength="40"
+              required
+              value={values.email || ''}
+              onChange={handleChange}
+            />
+            {errors.email && (
+              <span className="signup__error">{errors.email}</span>
+            )}
+          </label>
+          <label htmlFor="signupPassword" className="signup__label">
+            Пароль
+            <input
+              id="signupPassword"
+              name="password"
+              type="password"
+              className="signup__input"
+              placeholder=""
+              minLength="8"
+              maxLength="21"
+              required
+              value={values.password || ''}
+              onChange={handleChange}
+            />
+            {errors.password && (
+              <span className="signup__error">{errors.password}</span>
+            )}
+          </label>
+          <button type="submit" className="signup__submit" disabled={!isValid}>
+            Зарегистрироваться
+          </button>
+          <div className="signin-block">
+            <p className="signin-block__text">Уже зарегистрированы?</p>
             <button
-              type="submit"
-              className="signup__submit"
-              disabled={!isValid}
+              className="signin-block__button"
+              type="button"
+              onClick={handleSignin}
             >
-              Зарегистрироваться
+              Войти
             </button>
-            <div className="signin-block">
-              <p className="signin-block__text">Уже зарегистрированы?</p>
-              <button
-                className="signin-block__button"
-                type="button"
-                onClick={handleSignin}
-              >
-                Войти
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 
