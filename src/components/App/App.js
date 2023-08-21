@@ -18,6 +18,10 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    document.title = 'Movies Project';
+  }, []);
+
+  React.useEffect(() => {
     const token = localStorage.getItem('jwt');
     
     if (token) {

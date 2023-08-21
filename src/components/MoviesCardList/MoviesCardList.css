@@ -75,12 +75,12 @@
 
 @media screen and (max-width: 768px) {
   .movieCardList {
-    /* grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding-left: 30px;
-    padding-right: 30px; */
-    /* padding-top: 0;
+    padding-right: 30px;
+    padding-top: 0;
     gap: 18px 25px;
-    padding-bottom: 30px; */
+    padding-bottom: 30px;
   }
 
   .movieCardList__button-container {
