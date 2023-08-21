@@ -122,8 +122,6 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
     let increment;
 
     const currentRows = getInitialVisibleRows();
-    console.log(currentRows, 'currentRows');
-    console.log(adjustedVisibleRows, 'adjustedVisibleRows');
     if (adjustedVisibleRows < currentRows) {
       setAdjustedVisibleRows(currentRows);
       return;
