@@ -29,7 +29,6 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
 
   const getInitialVisibleRows = () => {
     const windowWidth = window.innerWidth;
-    console.log(windowWidth, 'window width');
     if (windowWidth > MAX_SCREEN_LARGE) {
       return VISIBLE_ROWS_LARGE;
     } else if (windowWidth >= MAX_SCREEN_MEDIUM) {

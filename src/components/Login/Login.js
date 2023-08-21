@@ -68,7 +68,6 @@ function Login(props) {
             <input
               id="authEmail"
               name="email"
-              pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               type="email"
               className={`auth__input ${errors.email ? 'error' : ''}`}
               placeholder=""

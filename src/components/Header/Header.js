@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Header.css';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useMatch } from 'react-router-dom';
 import icon from '../../images/icon.svg';
 import menuIcon from '../../images/menu-icon.svg';
 import closeButton from '../../images/closeButton.svg';
@@ -8,6 +8,10 @@ import closeButton from '../../images/closeButton.svg';
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const matchMovies = useMatch('/movies');
+  const matchSavedMovies = useMatch('/saved-movies');
+  const matchProfile = useMatch('/profile');
 
   const handleSignup = () => {
     navigate('/signup');
@@ -43,15 +47,30 @@ function Header({ isLoggedIn }) {
                   <NavLink to="/" className="header__menu-link">
                     Главная
                   </NavLink>
-                  <NavLink to="/movies" className="header__menu-link">
+                  <NavLink
+                    to="/movies"
+                    className={
+                      matchMovies ? 'header__link active-link' : 'header__link'
+                    }
+                  >
                     Фильмы
                   </NavLink>
-                  <NavLink to="/saved-movies" className="header__menu-link">
-                    Сохранённые фильмы
+                  <NavLink
+                    to="/saved-movies"
+                    className={
+                      matchSavedMovies
+                        ? 'header__link active-link'
+                        : 'header__link'
+                    }
+                  >
+                    Сохраненные фильмы
                   </NavLink>
-                </div>
-                <div className="header__menu-account-wrapper">
-                  <NavLink to="/profile" className="header__menu-account-link">
+                  <NavLink
+                    to="/profile"
+                    className={
+                      matchProfile ? 'header__link active-link' : 'header__link'
+                    }
+                  >
                     Аккаунт
                   </NavLink>
                   <NavLink
@@ -69,28 +88,33 @@ function Header({ isLoggedIn }) {
             ) : (
               <div className="header__links-wrapper">
                 <NavLink
-                  exact to="/movies"
-                  className="header__link"
-                  activeClassName="active-link"
+                  to="/movies"
+                  className={
+                    matchMovies ? 'header__link active-link' : 'header__link'
+                  }
                 >
                   Фильмы
                 </NavLink>
                 <NavLink
-                  exact to="/saved-movies"
-                  className="header__link"
-                  activeClassName="active-link"
+                  to="/saved-movies"
+                  className={
+                    matchSavedMovies
+                      ? 'header__link active-link'
+                      : 'header__link'
+                  }
                 >
                   Сохраненные фильмы
                 </NavLink>
                 <NavLink
-                  exact to="/profile"
-                  className="header__link"
-                  activeClassName="active-link"
+                  to="/profile"
+                  className={
+                    matchProfile ? 'header__link active-link' : 'header__link'
+                  }
                 >
                   Аккаунт
                 </NavLink>
 
-                <NavLink exact to="/profile" className="header__account-icon-wrapper">
+                <NavLink to="/profile" className="header__account-icon-wrapper">
                   <img
                     className="header__account-icon"
                     src={icon}
