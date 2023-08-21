@@ -55,6 +55,7 @@
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
+  justify-self: baseline;
 }
 
 @media screen and (max-width: 1240px) {
@@ -65,6 +66,10 @@
     padding-top: 50px;
     gap: 30px;
     justify-items: center;
+  }
+
+  .movieCardList__hint {
+    padding-left: 40px;
   }
 }
 
@@ -82,6 +87,10 @@
     margin-top: 5px;
     margin-bottom: 100px;
   }
+
+  .movieCardList__hint {
+    padding-left: 0px;
+  }
 }
 
 @media screen and (max-width: 760px) {
@@ -93,6 +102,10 @@
     padding-top: 41px;
     justify-content: center;
     padding-bottom: 14px;
+  }
+
+  .movieCardList__hint {
+    padding-left: 4px;
   }
 }
 

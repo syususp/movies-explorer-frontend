@@ -39,9 +39,8 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
     }
   };
 
-  const [adjustedVisibleRows, setAdjustedVisibleRows] = useState(
-    VISIBLE_ROWS_SMALL,
-  );
+  const [adjustedVisibleRows, setAdjustedVisibleRows] =
+    useState(VISIBLE_ROWS_SMALL);
 
   useEffect(() => {
     setAdjustedVisibleRows(getInitialVisibleRows());
@@ -159,7 +158,7 @@ function MoviesCardList({ query, isShortMoviesChecked }) {
             или сервер недоступен. Подождите немного и попробуйте ещё раз.
           </p>
         )}
-        {!isLoading && !error && visibleMovies.length === 0 && (
+        {!isLoading && !error && visibleMovies.length === 0 && query && (
           <p className="movieCardList__hint">Ничего не найдено</p>
         )}
         {!isLoading && !error && (
