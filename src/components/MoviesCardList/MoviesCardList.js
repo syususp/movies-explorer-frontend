@@ -1,118 +1,207 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MoviesCard/MoviesCard';
-import words33 from '../../images/33words.png';
-import let100 from '../../images/100let.png';
-import benksy from '../../images/banksy.png';
-import baskiya from '../../images/baskiya.png';
-import beg from '../../images/beg.png';
-import booksales from '../../images/booksales.png';
-import aboutGermany from '../../images/aboutGermany.png';
-import iggy from '../../images/iggi.png';
-import djenis from '../../images/djenis.png';
-import beforeJump from '../../images/beforeJump.png';
-import dogCalled from '../../images/dogCalled.png';
-import sound from '../../images/sound.png';
+import Preloader from '../Preloader/Preloader';
+import { getMovies } from '../../utils/ApiFilm';
+import { getSaveMovies } from '../../utils/MainApi';
+import { filterMovies } from '../../utils/filterMovies';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {
+  VISIBLE_ROWS_LARGE,
+  VISIBLE_ROWS_MEDIUM,
+  VISIBLE_ROWS_SMALL,
+  MAX_SCREEN_SMALL,
+  MAX_SCREEN_MEDIUM,
+  MAX_SCREEN_LARGE,
+  CARDS_INCREMENT_LARGE,
+  CARDS_INCREMENT_MEDIUM,
+  CARDS_INCREMENT_SMALL,
+} from '../../constants/constants';
 
-function MoviesCardList() {
+function MoviesCardList({ query, isShortMoviesChecked }) {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [areAllMoviesShown, setAreAllMoviesShown] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const getInitialVisibleRows = () => {
+    const windowWidth = window.innerWidth;
+    if (windowWidth > MAX_SCREEN_LARGE) {
+      return VISIBLE_ROWS_LARGE;
+    } else if (windowWidth >= MAX_SCREEN_MEDIUM) {
+      return VISIBLE_ROWS_MEDIUM;
+    } else {
+      return VISIBLE_ROWS_SMALL;
+    }
+  };
+
+  const [adjustedVisibleRows, setAdjustedVisibleRows] =
+    useState(VISIBLE_ROWS_SMALL);
+
+  useEffect(() => {
+    setAdjustedVisibleRows(getInitialVisibleRows());
+  }, [query, isShortMoviesChecked]);
+
+  useEffect(() => {
+    setAdjustedVisibleRows(getInitialVisibleRows());
+  }, []);
+
+  const fetchMovies = useCallback(() => {
+    const storedMovies = localStorage.getItem('storedMovies');
+    const storedSavedMovies = localStorage.getItem('storedSavedMovies');
+
+    if (storedMovies && storedSavedMovies) {
+      setMovies(JSON.parse(storedMovies));
+      setSavedMovies(JSON.parse(storedSavedMovies));
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    Promise.all([getMovies(), getSaveMovies()])
+      .then(([moviesData, savedMoviesData]) => {
+        setMovies(moviesData);
+        setSavedMovies(savedMoviesData);
+        localStorage.setItem('storedMovies', JSON.stringify(moviesData));
+        localStorage.setItem(
+          'storedSavedMovies',
+          JSON.stringify(savedMoviesData),
+        );
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (query || isShortMoviesChecked) {
+      fetchMovies();
+    }
+  }, [query, isShortMoviesChecked, fetchMovies]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setAdjustedVisibleRows(getInitialVisibleRows());
+    };
+
+    let resizeTimeout;
+
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        handleResize();
+      }, 300);
+    };
+
+    handleResize();
+    window.addEventListener('resize', debouncedResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+    };
+  }, []);
+
+  const visibleMovies = filterMovies(movies, query, isShortMoviesChecked);
+
+  useEffect(() => {
+    if (adjustedVisibleRows >= visibleMovies.length) {
+      setAreAllMoviesShown(true);
+    } else {
+      setAreAllMoviesShown(false);
+    }
+  }, [visibleMovies, adjustedVisibleRows]);
+
+  const showMoreMovies = () => {
+    let increment;
+
+    const currentRows = getInitialVisibleRows();
+    if (adjustedVisibleRows < currentRows) {
+      setAdjustedVisibleRows(currentRows);
+      return;
+    }
+
+    if (window.innerWidth <= MAX_SCREEN_SMALL) {
+      increment = CARDS_INCREMENT_SMALL;
+    } else if (window.innerWidth <= MAX_SCREEN_LARGE) {
+      increment = CARDS_INCREMENT_MEDIUM;
+    } else {
+      increment = CARDS_INCREMENT_LARGE;
+    }
+
+    if (adjustedVisibleRows + increment <= visibleMovies.length) {
+      setAdjustedVisibleRows((prevRows) =>
+        Math.min(prevRows + increment, visibleMovies.length),
+      );
+    } else {
+      setAdjustedVisibleRows(visibleMovies.length);
+      setAreAllMoviesShown(true);
+    }
+  };
+
   return (
-    <section className="movieCardList">
-      <MovieCard
-        imageUrl={words33}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина 33 слова о дизайне'
-        movieName='33 слова о дизайне'
-        movieDuration='1ч 47м'
-      />
+    <>
+      <section className="movieCardList">
+        {isLoading && <Preloader />}
+        {!isLoading && error && (
+          <p className="movieCardList__hint">
+            Во время запроса произошла ошибка. Возможно, проблема с соединением
+            или сервер недоступен. Подождите немного и попробуйте ещё раз.
+          </p>
+        )}
+        {!isLoading && !error && visibleMovies.length === 0 && query && (
+          <p className="movieCardList__hint">Ничего не найдено</p>
+        )}
+        {!isLoading && !error && (
+          <React.Fragment>
+            {visibleMovies.slice(0, adjustedVisibleRows).map((movie) => {
+              const isSaved = savedMovies.some(
+                (savedMovie) => savedMovie.movieId === movie.id,
+              );
 
-      <MovieCard
-        imageUrl={let100}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='Киноальманах 100 лет дизайна'
-        movieName='Киноальманах «100 лет дизайна»'
-        movieDuration='1ч 3м'
-      />
-
-      <MovieCard
-        imageUrl={benksy}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина В погоне за Бенкси'
-        movieName='В погоне за Бенкси'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={baskiya}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Баския - Взрыв реальности'
-        movieName='Баския: Взрыв реальности'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={beg}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Бег это свобода'
-        movieName='Бег это свобода'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={booksales}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Книготорговцы'
-        movieName='Книготорговцы'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={aboutGermany}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Когда я думаю о Германии ночью'
-        movieName='Когда я думаю о Германии ночью'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={iggy}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Gimme Danger: История Игги и The Stooge'
-        movieName='Gimme Danger: История Игги и The Stooge'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={djenis}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Дженис: Маленькая девочка грустит'
-        movieName='Дженис: Маленькая девочка грустит'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={beforeJump}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Соберись перед прыжком'
-        movieName='Соберись перед прыжком'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={dogCalled}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина Пи Джей Харви: A dog called money'
-        movieName='Пи Джей Харви: A dog called money'
-        movieDuration='1ч 47м'
-      />
-
-      <MovieCard
-        imageUrl={sound}
-        movieUrl='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-        altText='картина По волнам: Искусство звука в кино'
-        movieName='По волнам: Искусство звука в кино'
-        movieDuration='1ч 47м'
-      />
-    </section>
+              return (
+                <MovieCard
+                  key={movie.id}
+                  isSaved={isSaved}
+                  savedMovies={savedMovies}
+                  movieUrl={movie.trailerLink}
+                  altText={movie.nameRU}
+                  movieName={movie.nameRU}
+                  movieDuration={movie.duration}
+                  country={movie.country}
+                  director={movie.director}
+                  year={movie.year}
+                  description={movie.description}
+                  image={movie.image.url}
+                  trailerLink={movie.trailerLink}
+                  thumbnail={movie.image.url}
+                  owner={currentUser._id}
+                  movieId={movie.id}
+                  nameRU={movie.nameRU}
+                  nameEN={movie.nameEN}
+                />
+              );
+            })}
+          </React.Fragment>
+        )}
+      </section>
+      {!areAllMoviesShown && (
+        <div
+          className="movieCardList__button-container"
+          onClick={showMoreMovies}
+        >
+          <button type="button" className="movieCardList__button">
+            Еще
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 

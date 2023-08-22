@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './Header.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useMatch } from 'react-router-dom';
 import icon from '../../images/icon.svg';
-import menuIcon from '../../images/menu-icon.svg'; // Иконка для бургер-меню
-import closeButton from '../../images/closeButton.svg'
+import menuIcon from '../../images/menu-icon.svg';
+import closeButton from '../../images/closeButton.svg';
 
 function Header({ isLoggedIn }) {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // состояние бургер-меню
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const matchMovies = useMatch('/movies');
+  const matchSavedMovies = useMatch('/saved-movies');
+  const matchProfile = useMatch('/profile');
 
   const handleSignup = () => {
     navigate('/signup');
@@ -18,7 +22,6 @@ function Header({ isLoggedIn }) {
   };
 
   const toggleMenu = () => {
-    // обработчик клика для бургер-меню
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -30,7 +33,10 @@ function Header({ isLoggedIn }) {
           <>
             {isMenuOpen ? (
               <div className="header__menu">
-                <button className="header__menu-close-button" onClick={toggleMenu}>
+                <button
+                  className="header__menu-close-button"
+                  onClick={toggleMenu}
+                >
                   <img
                     src={closeButton}
                     alt="Закрыть меню"
@@ -38,47 +44,83 @@ function Header({ isLoggedIn }) {
                   />
                 </button>
                 <div className="header__menu-wrapper">
-                  <Link to="/" className="header__menu-link">
+                  <NavLink to="/" className="header__menu-link">
                     Главная
-                  </Link>
-                  <Link to="/movies" className="header__menu-link">
+                  </NavLink>
+                  <NavLink
+                    to="/movies"
+                    className={
+                      matchMovies ? 'header__link active-link' : 'header__link'
+                    }
+                  >
                     Фильмы
-                  </Link>
-                  <Link to="/saved-movies" className="header__menu-link">
-                    Сохранённые фильмы
-                  </Link>
-                </div>
-                <div className="header__menu-account-wrapper">
-                  <Link to="/profile" className="header__menu-account-link">
+                  </NavLink>
+                  <NavLink
+                    to="/saved-movies"
+                    className={
+                      matchSavedMovies
+                        ? 'header__link active-link'
+                        : 'header__link'
+                    }
+                  >
+                    Сохраненные фильмы
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className={
+                      matchProfile ? 'header__link active-link' : 'header__link'
+                    }
+                  >
                     Аккаунт
-                  </Link>
-                  <Link to="/profile" className="header__account-icon-wrapper">
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className="header__account-icon-wrapper"
+                  >
                     <img
                       className="header__account-icon"
                       src={icon}
                       alt="Иконка аккаунта"
                     />
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             ) : (
               <div className="header__links-wrapper">
-                <Link to="/movies" className="header__link">
+                <NavLink
+                  to="/movies"
+                  className={
+                    matchMovies ? 'header__link active-link' : 'header__link'
+                  }
+                >
                   Фильмы
-                </Link>
-                <Link to="/saved-movies" className="header__link">
+                </NavLink>
+                <NavLink
+                  to="/saved-movies"
+                  className={
+                    matchSavedMovies
+                      ? 'header__link active-link'
+                      : 'header__link'
+                  }
+                >
                   Сохраненные фильмы
-                </Link>
-                <Link to="/profile" className="header__link">
+                </NavLink>
+                <NavLink
+                  to="/profile"
+                  className={
+                    matchProfile ? 'header__link active-link' : 'header__link'
+                  }
+                >
                   Аккаунт
-                </Link>
-                <Link to="/profile" className="header__account-icon-wrapper">
+                </NavLink>
+
+                <NavLink to="/profile" className="header__account-icon-wrapper">
                   <img
                     className="header__account-icon"
                     src={icon}
                     alt="Иконка аккаунта"
                   />
-                </Link>
+                </NavLink>
               </div>
             )}
             <button className="header__menu-button" onClick={toggleMenu}>

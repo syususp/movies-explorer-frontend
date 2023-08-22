@@ -13,12 +13,17 @@ function AboutMe() {
           <p className="personal-info__description">
             Я родился и живу в Саратове, закончил факультет экономики СГУ. У
             меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь
-            бегом. Недавно начал кодить. <br className="personal-info__wrap"/>
-            С 2015 года работал в компании «СКБ
-            Контур». После того, как прошёл курс по веб-разработке, начал
-            заниматься фриланс-заказами и ушёл с постоянной работы.
+            бегом. Недавно начал кодить. <br className="personal-info__wrap" />С
+            2015 года работал в компании «СКБ Контур». После того, как прошёл
+            курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с
+            постоянной работы.
           </p>
-          <a href="https://github.com/" className="personal-info__github" target='_blank' rel="noreferrer">
+          <a
+            href="https://github.com/"
+            className="personal-info__github"
+            target="_blank"
+            rel="noreferrer"
+          >
             Github
           </a>
         </div>

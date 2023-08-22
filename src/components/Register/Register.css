@@ -82,7 +82,8 @@ input[type='password'] {
   margin-top: 5.5px;
 }
 
-.signup__input:invalid {
+.signup__input:invalid,
+.signup__input.error {
   color: #ee3465;
 }
 
@@ -100,6 +101,9 @@ input[type='password'] {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .signup__submit {
@@ -120,9 +124,17 @@ input[type='password'] {
   line-height: normal;
 }
 
+.signup__submit:disabled {
+  filter: brightness(0.5) grayscale(0.6);
+}
+
 .signup__submit:hover {
   opacity: 0.5;
   transition: 0.5s ease-out;
+}
+
+.signup__submit:disabled:hover {
+  opacity: 1;
 }
 
 .signin-block {
@@ -218,5 +230,9 @@ input[type='password'] {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+
+  .signup__error {
+    width: 260px;
   }
 }

@@ -72,6 +72,13 @@
   }
 }
 
+@media screen and (max-width: 760px) {
+  .footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .footer__title {
     text-align: center;

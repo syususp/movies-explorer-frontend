@@ -1,88 +1,101 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
-import movieImage1 from '../../images/movieImage.png';
-import movieImage2 from '../../images/movieImage2.png';
-import movieImage3 from '../../images/movieImage3.png';
+import MovieCard from '../../components/MoviesCard/MoviesCard';
 import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
+import { getSaveMovies, deleteSaveMovies } from '../../utils/MainApi';
+import { SHORT_MOVIE_DURATION } from '../../constants/constants';
 
 function SavedMovies({ isLoggedIn }) {
+  const storedQuerySavedMovies =
+    localStorage.getItem('storedQuerysavedMovies') || '';
+  const storedCheckboxStateSavedMovies = JSON.parse(
+    localStorage.getItem('storedCheckboxStatesavedMovies'),
+  );
+
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(storedQuerySavedMovies || '');
+  const [isShortMoviesChecked, setIsShortMoviesChecked] = useState(
+    storedCheckboxStateSavedMovies !== null
+      ? storedCheckboxStateSavedMovies
+      : false,
+  );
+
+  useEffect(() => {
+    getSaveMovies()
+      .then((data) => {
+        setSavedMovies(data);
+      })
+      .catch((error) => {
+        console.error('Ошибка при загрузке сохранённых фильмов: ', error);
+      });
+  }, []);
+
+  const handleDeleteMovie = (movieId) => {
+    deleteSaveMovies(movieId)
+      .then(() => {
+        const updatedSavedMovies = savedMovies.filter(
+          (movie) => movie._id !== movieId,
+        );
+        setSavedMovies(updatedSavedMovies);
+
+        localStorage.setItem(
+          'storedSavedMovies',
+          JSON.stringify(updatedSavedMovies),
+        );
+      })
+      .catch((error) => {
+        console.error('Ошибка при удалении: ', error);
+      });
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredMovies = savedMovies
+    .filter((movie) =>
+      movie.nameRU.toLowerCase().includes((searchQuery || '').toLowerCase()),
+    )
+    .filter((movie) => !isShortMoviesChecked || movie.duration <= SHORT_MOVIE_DURATION);
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main>
-        <SearchForm />
+        <SearchForm
+          onSearch={handleSearch}
+          onQueryChange={setSearchQuery}
+          onCheckboxChange={setIsShortMoviesChecked}
+          isChecked={isShortMoviesChecked}
+          page="savedMovies"
+        />
 
         <section className="savedMovieCardList">
-          <ul className="savedMovie">
-            <li className="savedMovie__wrapper">
-              <Link
-                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                target={'_blank'}
-                className="savedMovie__link"
-              >
-                <img
-                  className="savedMovie__image"
-                  src={movieImage1}
-                  alt="картина 33 слова о дизайне"
-                />
-              </Link>
-              <h3 className="savedMovie__name">33 слова о дизайне</h3>
-              <li className="savedMovie__duration">1ч 47м</li>
-              <button
-                className="savedMovie__deleteButton"
-                type="button"
-              ></button>
-            </li>
-          </ul>
-
-          <ul className="savedMovie">
-            <li className="savedMovie__wrapper">
-              <Link
-                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                target={'_blank'}
-                className="savedMovie__link"
-              >
-                <img
-                  className="savedMovie__image"
-                  src={movieImage2}
-                  alt="Киноальманах 100 лет дизайна"
-                />
-              </Link>
-              <h3 className="savedMovie__name">
-                Киноальманах «100 лет дизайна»
-              </h3>
-              <li className="savedMovie__duration">1ч 3м</li>
-              <button
-                className="savedMovie__deleteButton"
-                type="button"
-              ></button>
-            </li>
-          </ul>
-
-          <ul className="savedMovie">
-            <li className="savedMovie__wrapper">
-              <Link
-                to={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-                target={'_blank'}
-                className="savedMovie__link"
-              >
-                <img
-                  className="savedMovie__image"
-                  src={movieImage3}
-                  alt="картина В погоне за Бенкси"
-                />
-              </Link>
-              <h3 className="savedMovie__name">В погоне за Бенкси</h3>
-              <li className="savedMovie__duration">1ч 47м</li>
-              <button
-                className="savedMovie__deleteButton"
-                type="button"
-              ></button>
-            </li>
-          </ul>
+          {filteredMovies.map((movie) => {
+            return (
+              <MovieCard
+                fromSavedMovie={true}
+                key={movie._id}
+                image={movie.image}
+                thumbnailUrl={movie.thumbnail}
+                movieUrl={movie.trailerLink}
+                altText={movie.nameRU}
+                movieName={movie.nameRU}
+                movieDuration={movie.duration}
+                onDelete={() => handleDeleteMovie(movie._id)}
+                country={movie.country}
+                director={movie.director}
+                year={movie.year}
+                description={movie.description}
+                movieId={movie.movieId}
+                nameRU={movie.nameRU}
+                nameEN={movie.nameEN}
+                owner={movie.owner}
+              />
+            );
+          })}
         </section>
       </main>
       <Footer />

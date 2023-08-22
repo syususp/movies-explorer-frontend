@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
-  const [isChecked, setIsChecked] = useState(true);
-
+function FilterCheckbox({ isChecked, onChange }) {
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    const newState = !isChecked;
+    onChange(newState);
   };
 
   return (
