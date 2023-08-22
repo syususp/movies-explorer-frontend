@@ -36,8 +36,8 @@ export function useFormWithValidation() {
       ...errors,
       [name]:
         (name === 'email' && !validateEmail(value)) ||
-        (name === 'name' && value.trim() === '') // Добавлена проверка на пустое поле "name"
-          ? 'Поле не может быть пустым' // или любой другой текст ошибки для пустого поля "name"
+        (name === 'name' && value.trim() === '')
+          ? 'Поле не может быть пустым'
           : name === 'email' && !validateEmail(value)
           ? 'Неверный формат электронной почты'
           : target.validationMessage,

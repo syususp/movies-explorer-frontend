@@ -32,6 +32,7 @@ function SearchForm({ onQueryChange, onCheckboxChange, isChecked, page }) {
       localStorage.setItem(`storedQuery${page}`, query);
       await onQueryChange(query);
     } catch (error) {
+      setError('Произошла ошибка при выполнении запроса.');
     } finally {
       setIsLoading(false);
     }
