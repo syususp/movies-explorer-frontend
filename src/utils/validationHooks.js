@@ -33,18 +33,21 @@ export function useFormWithValidation() {
     setValues({ ...values, [name]: value });
 
     const currentErrors = {
-      ...errors, 
-      [name]: name === 'email' && !validateEmail(value) 
-        ? 'Неверный формат электронной почты' 
-        : target.validationMessage
+      ...errors,
+      [name]:
+        (name === 'email' && !validateEmail(value)) ||
+        (name === 'name' && value.trim() === '') // Добавлена проверка на пустое поле "name"
+          ? 'Поле не может быть пустым' // или любой другой текст ошибки для пустого поля "name"
+          : name === 'email' && !validateEmail(value)
+          ? 'Неверный формат электронной почты'
+          : target.validationMessage,
     };
 
     setErrors(currentErrors);
 
     const allValid = Object.values(currentErrors).every((error) => !error);
     setIsValid(allValid);
-};
-
+  };
 
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
@@ -55,5 +58,13 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid],
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setErrors,
+    setIsValid,
+  };
 }

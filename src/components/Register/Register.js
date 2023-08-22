@@ -6,7 +6,7 @@ import { signin, signup } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/validationHooks';
 
 function Register(props) {
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, setErrors, setIsValid } = useFormWithValidation();
 
   const handleSignin = () => {
     props.navigate('/signin');
@@ -36,6 +36,12 @@ function Register(props) {
       })
       .catch((error) => {
         console.log('Ошибка при отправке формы: ', error);
+
+        if (error.includes('409')) {
+          const serverErrorMessage = error.message || "E-mail уже зарегистрирован";
+          setErrors(prevErrors => ({ ...prevErrors, email: serverErrorMessage }));
+          setIsValid(false);
+        }        
       });
   };
 
